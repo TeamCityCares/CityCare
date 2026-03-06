@@ -4,44 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="0ccc997f-531f-48d5-9f21-be141589bfab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/CityCareApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/CityCareApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Entity.java" afterDir="false" />
     </list>
+=======
+    <list default="true" id="4a24a24a-aee6-44bb-a1b8-4fe0f692abac" name="Changes" comment="" />
+>>>>>>> main
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
-  <component name="McpProjectServerCommands">
-    <commands />
-    <urls />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 6
-}</component>
-  <component name="ProjectId" id="3AWFO4E0pADS63JMpbrfLnPLaDc" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -126,4 +106,9 @@
       </map>
     </option>
   </component>
+=======
+  <component name="TaskManager">
+    <servers />
+  </component>
+>>>>>>> main
 </project>
