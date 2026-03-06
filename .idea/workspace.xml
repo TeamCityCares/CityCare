@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="787bca7b-ca1b-4852-8238-47661b0d262f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/CityCare.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Ambulance.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/AmbulanceDispatch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Audit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/AuditLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/ComplianceRecord.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Emergency.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/CityCareApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/CityCareApplication.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+</project>
