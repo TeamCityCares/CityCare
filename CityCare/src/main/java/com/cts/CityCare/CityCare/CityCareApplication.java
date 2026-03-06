@@ -10,5 +10,4 @@ public class CityCareApplication {
 		SpringApplication.run(CityCareApplication.class, args);
 		System.out.println("CityCareApplication started");
 	}
-
 }
