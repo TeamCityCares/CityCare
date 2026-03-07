@@ -11,6 +11,10 @@ public class ComplianceRecord {
     private LocalDate date;
     private String notes;
 
+    public ComplianceRecord(){
+
+    }
+
     public ComplianceRecord(Long complianceId, Long entityId, String type, String result, LocalDate date, String notes) {
         this.complianceId = complianceId;
         this.entityId = entityId;
