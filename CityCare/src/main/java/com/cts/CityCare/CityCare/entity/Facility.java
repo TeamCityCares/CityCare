@@ -1,86 +1,49 @@
 package com.cts.CityCare.CityCare.entity;
 
-import java.util.List;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
-public class Facility {
+
+@Entity
+@Table(name = "facilities")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Facility extends BaseEntity {
+
+    public enum Type {
+        HOSPITAL, CLINIC
+    }
+
+    public enum Status {
+        ACTIVE, INACTIVE, MAINTENANCE
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long facilityId;
+
+    @NotBlank
+    @Column(nullable = false)
     private String name;
-    private String type;    // "Hospital" or "Clinic"
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Type type;
+
+    @NotBlank
+    @Column(nullable = false)
     private String location;
-    private int totalCapacity;
-    private String status;   //  "Active", "Diverting", "Maintenance"
 
-    // List to hold staff members associated with this facility
-    private List<Staff> staffMembers;
+    @Column(nullable = false)
+    private int capacity;
 
-    // Default Constructor
-    public Facility() {
-    }
-
-    // Parameterized Constructor
-    public Facility(Long facilityId, String name, String type, String location, int totalCapacity, String status) {
-        this.facilityId = facilityId;
-        this.name = name;
-        this.type = type;
-        this.location = location;
-        this.totalCapacity = totalCapacity;
-        this.status = status;
-    }
-
-    // Getters and Setters
-    public Long getFacilityId() {
-        return facilityId;
-    }
-
-    public void setFacilityId(Long facilityId) {
-        this.facilityId = facilityId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public int getTotalCapacity() {
-        return totalCapacity;
-    }
-
-    public void setTotalCapacity(int totalCapacity) {
-        this.totalCapacity = totalCapacity;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public List<Staff> getStaffMembers() {
-        return staffMembers;
-    }
-
-    public void setStaffMembers(List<Staff> staffMembers) {
-        this.staffMembers = staffMembers;
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private Status status = Status.ACTIVE;
 }
