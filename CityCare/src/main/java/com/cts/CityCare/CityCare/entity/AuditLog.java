@@ -1,6 +1,6 @@
 package com.cts.CityCare.CityCare.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class AuditLog {
 
@@ -8,14 +8,14 @@ public class AuditLog {
     private Long userId;
     private String action;
     private String resource;
-    private LocalDateTime timestamp;
+    private LocalTime timestamp;
 
     public AuditLog(){
 
     }
 
 
-    public AuditLog(Long auditId, Long userId, String action, String resource, LocalDateTime timestamp) {
+    public AuditLog(Long auditId, Long userId, String action, String resource, LocalTime timestamp) {
         this.auditId = auditId;
         this.userId = userId;
         this.action = action;
@@ -56,11 +56,11 @@ public class AuditLog {
         this.resource = resource;
     }
 
-    public LocalDateTime getTimestamp() {
+    public LocalTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(LocalTime timestamp) {
         this.timestamp = timestamp;
     }
 }
