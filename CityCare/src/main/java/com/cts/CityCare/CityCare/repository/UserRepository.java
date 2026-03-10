@@ -4,6 +4,11 @@ import com.cts.CityCare.CityCare.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+<<<<<<< HEAD
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+
+=======
 import java.util.List;
 import java.util.Optional;
 
@@ -22,4 +27,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // Used by admin to list active staff only
     List<User> findByRoleAndStatus(User.Role role, User.Status status);
+>>>>>>> main
 }
