@@ -11,6 +11,10 @@ public class Audit {
     private LocalDate date;
     private String status;
 
+    public Audit(){
+
+    }
+
     public Audit(Long auditId, Long officerId, String scope, String findings, LocalDate date, String status) {
         this.auditId = auditId;
         this.officerId = officerId;
