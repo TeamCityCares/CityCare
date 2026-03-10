@@ -1,13 +1,20 @@
 package com.cts.CityCare.CityCare.entity;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import org.springframework.data.jpa.repository.EntityGraph;
+
 import java.time.LocalDateTime;
 
 
-
+@Entity
 public class Patient {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long patientID;
     private Long citizenID;
     private Long facilityID;
