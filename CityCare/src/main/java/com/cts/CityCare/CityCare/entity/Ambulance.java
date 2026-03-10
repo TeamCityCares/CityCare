@@ -1,31 +1,39 @@
 package com.cts.CityCare.CityCare.entity;
 
-public class Ambulance {
-    private Integer ambulanceId;
-    private Integer facilityId;
-    private String vehicleNumber;
-    private String status;
 
-    public Ambulance() {
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
+
+@Entity
+@Table(name = "ambulances",
+        uniqueConstraints = @UniqueConstraint(columnNames = "vehicle_number"))
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Ambulance extends BaseEntity {
+
+    public enum Status {
+        AVAILABLE,    // Ready to be dispatched to an emergency
+        DISPATCHED,   // Currently en route to an emergency
+        MAINTENANCE   // Under repair – not available for dispatch
     }
 
-    public Ambulance(Integer ambulanceId, Integer facilityId, String vehicleNumber, String status) {
-        this.ambulanceId = ambulanceId;
-        this.facilityId = facilityId;
-        this.vehicleNumber = vehicleNumber;
-        this.status = status;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long ambulanceId;
 
-    public Integer getAmbulanceId() { return ambulanceId; }
-    public void setAmbulanceId(Integer ambulanceId) { this.ambulanceId = ambulanceId; }
+    @NotBlank
+    @Column(name = "vehicle_number", nullable = false, unique = true)
+    private String vehicleNumber; // e.g. "TN-01-AB-1234"
 
-    public Integer getFacilityId() { return facilityId; }
-    public void setFacilityId(Integer facilityId) { this.facilityId = facilityId; }
+    private String model; // e.g. "Toyota HiAce Advanced Life Support"
 
-    public String getVehicleNumber() { return vehicleNumber; }
-    public void setVehicleNumber(String vehicleNumber) { this.vehicleNumber = vehicleNumber; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private Status status = Status.AVAILABLE; // Always starts AVAILABLE when added
 }

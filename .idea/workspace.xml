@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ccc997f-531f-48d5-9f21-be141589bfab" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/BaseEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CityCare/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/CityCareApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/CityCareApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/dao/Dao.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/dao/Dao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Entity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/dao/Dao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Ambulance.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Ambulance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/AmbulanceDispatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/AmbulanceDispatch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Emergency.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Emergency.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CityCare/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,10 +28,10 @@
     <commands />
     <urls />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="3Ajw9DNVgtfv8z2THGNDDfzEsg1" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -37,31 +40,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;Spring Boot.CityCareApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Patientrecord&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/2478288/OneDrive - Cognizant/Desktop/java/CityCare&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Spring Boot.CityCareApplication.executor": "Run",
+    "git-widget-placeholder": "Merging Patientrecord",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/2478288/OneDrive - Cognizant/Desktop/java/CityCare",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="CityCareApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UnknownPolicyInFreeMode" />
