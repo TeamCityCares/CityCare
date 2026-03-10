@@ -2,7 +2,6 @@ package com.cts.CityCare.CityCare.repository;
 
 
 import com.cts.CityCare.CityCare.entity.Citizen;
-import com.cts.CityCare.CityCare.entity.CitizenStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
