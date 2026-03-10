@@ -1,66 +1,34 @@
 package com.cts.CityCare.CityCare.entity;
 
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.LocalDateTime;
 
-public class AuditLog {
+@Entity
+@Table(name = "audit_logs")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class AuditLog extends BaseEntity {
 
-    private Long auditId;
-    private Long userId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long logId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column(nullable = false)
     private String action;
+
+    @Column(nullable = false)
     private String resource;
+
+    @Column(nullable = false)
     private LocalDateTime timestamp;
-
-    public AuditLog(){
-
-    }
-
-
-    public AuditLog(Long auditId, Long userId, String action, String resource, LocalDateTime timestamp) {
-        this.auditId = auditId;
-        this.userId = userId;
-        this.action = action;
-        this.resource = resource;
-        this.timestamp = timestamp;
-    }
-
-
-    public Long getAuditId() {
-        return auditId;
-    }
-
-    public void setAuditId(Long auditId) {
-        this.auditId = auditId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
-    }
-
-    public String getResource() {
-        return resource;
-    }
-
-    public void setResource(String resource) {
-        this.resource = resource;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
 }
+
