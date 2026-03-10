@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ccc997f-531f-48d5-9f21-be141589bfab" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/BaseEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CityCare/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/dao/Dao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Ambulance.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Ambulance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/AmbulanceDispatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/AmbulanceDispatch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Emergency.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Emergency.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Treatment.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/Treatment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CityCare/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,7 +47,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "Spring Boot.CityCareApplication.executor": "Run",
-    "git-widget-placeholder": "Merging Patientrecord",
+    "git-widget-placeholder": "Patientrecord",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/2478288/OneDrive - Cognizant/Desktop/java/CityCare",
