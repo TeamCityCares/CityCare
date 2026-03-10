@@ -1,4 +1,5 @@
-package com.cts.CityCare.CityCare.dao;
+package com.cts.CityCare.CityCare.repository;
+
 import com.cts.CityCare.CityCare.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 
-public interface UserDao extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
     // Used in login to find user by email
     Optional<User> findByEmail(String email);
