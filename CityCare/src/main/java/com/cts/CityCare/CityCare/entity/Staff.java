@@ -1,84 +1,52 @@
 package com.cts.CityCare.CityCare.entity;
 
-public class Staff {
-    private Long staffId;
-    private Long facilityId;      // Foreign key reference ID
-    private String staffName;
-    private String staffRole;     //"Doctor", "Nurse"
-    private String staffContactInfo;
-    private String staffStatus;   //"Active", "On Leave", "Inactive"
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
-    // Reference to the Facility object this staff belongs to
+@Entity
+@Table(name = "staff")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Staff extends BaseEntity {
+
+    public enum Role {
+        DOCTOR, NURSE
+    }
+
+    public enum Status {
+        ACTIVE, INACTIVE
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long staffId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "facility_id", nullable = false)
     private Facility facility;
 
-    // Default Constructor
-    public Staff() {
-    }
+    @NotBlank
+    @Column(nullable = false)
+    private String name;
 
-    // Parameterized Constructor
-    public Staff(Long staffId, Long facilityId, String staffName, String staffRole, String staffContactInfo, String staffStatus) {
-        this.staffId = staffId;
-        this.facilityId = facilityId;
-        this.staffName = staffName;
-        this.staffRole = staffRole;
-        this.staffContactInfo = staffContactInfo;
-        this.staffStatus = staffStatus;
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
-    // Getters and Setters
-    public Long getStaffId() {
-        return staffId;
-    }
+    private String contactInfo;
 
-    public void setStaffId(Long staffId) {
-        this.staffId = staffId;
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private Status status = Status.ACTIVE;
 
-    public Long getFacilityId() {
-        return facilityId;
-    }
-
-    public void setFacilityId(Long facilityId) {
-        this.facilityId = facilityId;
-    }
-
-    public String getName() {
-        return staffName;
-    }
-
-    public void setName(String staffName) {
-        this.staffName = staffName;
-    }
-
-    public String getRole() {
-        return staffRole;
-    }
-
-    public void setRole(String staffRole) {
-        this.staffRole = staffRole;
-    }
-
-    public String getContactInfo() {
-        return staffContactInfo;
-    }
-
-    public void setContactInfo(String contactInfo) {
-        this.staffContactInfo = staffContactInfo;
-    }
-
-    public String getStatus() {
-        return staffStatus;
-    }
-
-    public void setStatus(String status) {
-        this.staffStatus = staffStatus;
-    }
-
-    public Facility getFacility() {
-        return facility;
-    }
-
-    public void setFacility(Facility facility) {
-        this.facility = facility;
-    }
+    // Link to User account
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 }

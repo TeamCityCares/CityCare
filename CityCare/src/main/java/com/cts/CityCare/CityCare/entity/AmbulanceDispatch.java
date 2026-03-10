@@ -1,43 +1,45 @@
 package com.cts.CityCare.CityCare.entity;
 
 import java.time.LocalDateTime;
+import jakarta.persistence.*;
+import lombok.*;
 
-public class AmbulanceDispatch {
-    private Integer dispatchId;
-    private Integer emergencyId;
-    private Integer dispatcherId;
-    private Integer ambulanceId;
-    private LocalDateTime date;
-    private String status;
+import java.time.LocalDateTime;
 
-    public AmbulanceDispatch() {
+@Entity
+@Table(name = "ambulance_dispatches")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class AmbulanceDispatch extends BaseEntity {
 
+    public enum Status {
+        ACTIVE, COMPLETED, CANCELLED
     }
 
-    public AmbulanceDispatch(Integer dispatchId, Integer emergencyId, Integer dispatcherId, Integer ambulanceId, LocalDateTime date, String status) {
-        this.dispatchId = dispatchId;
-        this.emergencyId = emergencyId;
-        this.dispatcherId = dispatcherId;
-        this.ambulanceId = ambulanceId;
-        this.date = date;
-        this.status = status;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long dispatchId;
 
-    public Integer getDispatchId() { return dispatchId; }
-    public void setDispatchId(Integer dispatchId) { this.dispatchId = dispatchId; }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "emergency_id", nullable = false)
+    private Emergency emergency;
 
-    public Integer getEmergencyId() { return emergencyId; }
-    public void setEmergencyId(Integer emergencyId) { this.emergencyId = emergencyId; }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dispatcher_id", nullable = false)
+    private User dispatcher;
 
-    public Integer getDispatcherId() { return dispatcherId; }
-    public void setDispatcherId(Integer dispatcherId) { this.dispatcherId = dispatcherId; }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ambulance_id", nullable = false)
+    private Ambulance ambulance;
 
-    public Integer getAmbulanceId() { return ambulanceId; }
-    public void setAmbulanceId(Integer ambulanceId) { this.ambulanceId = ambulanceId; }
+    @Column(nullable = false)
+    private LocalDateTime dispatchDate;
 
-    public LocalDateTime getDate() { return date; }
-    public void setDate(LocalDateTime date) { this.date = date; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private Status status = Status.ACTIVE;
 }
