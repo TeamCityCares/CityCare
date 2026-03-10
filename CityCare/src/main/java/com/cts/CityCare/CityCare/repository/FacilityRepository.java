@@ -1,0 +1,17 @@
+package com.cts.CityCare.CityCare.repository;
+
+import com.cts.CityCare.CityCare.entity.Facility;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface FacilityRepository extends JpaRepository<Facility, Long> {
+
+//    @Query("select f from Facility f")
+//    List<Facility> findAllFacilityList();
+//    List<Facility> findAll();
+
+}
