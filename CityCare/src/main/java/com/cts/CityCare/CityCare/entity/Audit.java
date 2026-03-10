@@ -1,75 +1,42 @@
 package com.cts.CityCare.CityCare.entity;
 
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.LocalDate;
 
-public class Audit {
+@Entity
+@Table(name = "audits")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Audit extends BaseEntity {
 
+    public enum Status {
+        SCHEDULED, IN_PROGRESS, COMPLETED, CANCELLED
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long auditId;
-    private Long officerId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "officer_id", nullable = false)
+    private User officer;
+
+    @Column(nullable = false)
     private String scope;
+
+    @Column(columnDefinition = "TEXT")
     private String findings;
+
+    @Column(nullable = false)
     private LocalDate date;
-    private String status;
 
-    public Audit(){
-
-    }
-
-    public Audit(Long auditId, Long officerId, String scope, String findings, LocalDate date, String status) {
-        this.auditId = auditId;
-        this.officerId = officerId;
-        this.scope = scope;
-        this.findings = findings;
-        this.date = date;
-        this.status = status;
-    }
-
-    public Long getAuditId() {
-        return auditId;
-    }
-
-    public void setAuditId(Long auditId) {
-        this.auditId = auditId;
-    }
-
-    public Long getOfficerId() {
-        return officerId;
-    }
-
-    public void setOfficerId(Long officerId) {
-        this.officerId = officerId;
-    }
-
-    public String getScope() {
-        return scope;
-    }
-
-    public void setScope(String scope) {
-        this.scope = scope;
-    }
-
-    public String getFindings() {
-        return findings;
-    }
-
-    public void setFindings(String findings) {
-        this.findings = findings;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private Status status = Status.SCHEDULED;
 }
-
