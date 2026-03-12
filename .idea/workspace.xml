@@ -4,19 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ccc997f-531f-48d5-9f21-be141589bfab" name="Changes" comment="">
+    <list default="true" id="ef469c0d-3c2a-4801-b0f9-36b76c870c66" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/dto/request/AmbulanceRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/dto/request/CreateStaffRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/dto/request/FacilityRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/exception/BadRequestException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/service/FacilityService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/AuditLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/entity/AuditLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/exception/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/exception/ResourceNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/repository/FacilityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/repository/FacilityRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/repository/StaffRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/repository/StaffRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/service/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/service/AdminService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="McpProjectServerCommands">
-    <commands />
-    <urls />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="3AksCY22SgNU7l5aE7kaFUYk8Aq" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -24,75 +43,50 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "Spring Boot.CityCareApplication.executor": "Run",
-    "git-widget-placeholder": "Audit",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/2478288/OneDrive - Cognizant/Desktop/java/CityCare",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;Spring Boot.CityCareApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;HospitalAdmin&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
-    <configuration name="CityCareApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UnknownPolicyInFreeMode" />
+    <configuration name="CityCareApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="CityCare" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.cts.CityCare.CityCare.CityCareApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cts.CityCare.CityCare.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Spring Boot.CityCareApplication" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
         <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.240" />
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.29346.240" />
       </set>
     </attachedChunks>
   </component>
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ef469c0d-3c2a-4801-b0f9-36b76c870c66" name="Changes" comment="" />
+      <created>1773204264843</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1773204264843</updated>
+      <workItem from="1773204264846" duration="354000" />
+    </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>
