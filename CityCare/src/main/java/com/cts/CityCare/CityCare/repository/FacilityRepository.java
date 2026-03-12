@@ -10,8 +10,7 @@ import java.util.List;
 @Repository
 public interface FacilityRepository extends JpaRepository<Facility, Long> {
 
-//    @Query("select f from Facility f")
-//    List<Facility> findAllFacilityList();
-//    List<Facility> findAll();
+    List<Facility> findByStatus(Facility.Status status);
+    List<Facility> findByType(Facility.Type type);
 
 }
