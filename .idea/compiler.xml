@@ -7,13 +7,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="CityCare" />
+        <module name="citycare" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="CityCare" target="25" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="CityCare" options="-parameters" />
+      <module name="citycare" options="-parameters" />
     </option>
   </component>
 </project>
