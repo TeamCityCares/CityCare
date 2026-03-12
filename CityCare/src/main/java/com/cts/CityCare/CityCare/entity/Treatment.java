@@ -1,39 +1,48 @@
 package com.cts.CityCare.CityCare.entity;
 
 
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
+import lombok.*;
 
+import java.time.LocalDate;
 
+@Entity
+@Table(name = "treatments")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Treatment extends BaseEntity {
 
-public class Treatment {
+    public enum Status {
+        ONGOING, COMPLETED, CANCELLED
+    }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long treatmentId;
 
-    private Long treatmentID;
-    private Long patientID;
-    private Long doctorID;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "assigned_by", nullable = false)
+    private User assignedBy;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
-    private LocalDateTime date;
-    private String status;
 
-    // Default Constructor
-    public Treatment() {}
+    private String medicationName;
+    private String dosage;
 
-    // Getters and Setters
-    public Long getTreatmentID() { return treatmentID; }
-    public void setTreatmentID(Long treatmentID) { this.treatmentID = treatmentID; }
+    @Builder.Default
+    private LocalDate startDate = LocalDate.now();
+    private LocalDate endDate;
 
-    public Long getPatientID() { return patientID; }
-    public void setPatientID(Long patientID) { this.patientID = patientID; }
-
-    public Long getDoctorID() { return doctorID; }
-    public void setDoctorID(Long doctorID) { this.doctorID = doctorID; }
-
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-
-    public LocalDateTime getDate() { return date; }
-    public void setDate(LocalDateTime date) { this.date = date; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private Status status = Status.ONGOING;
 }

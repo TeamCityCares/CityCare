@@ -1,39 +1,49 @@
 package com.cts.CityCare.CityCare.entity;
 
 
-import java.time.LocalDateTime;
 
+import jakarta.persistence.*;
+import lombok.*;
 
+import java.time.LocalDate;
 
-public class Patient {
+@Entity
+@Table(name = "patients")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Patient extends BaseEntity {
 
+    public enum Status {
+        ADMITTED, UNDER_OBSERVATION, STABLE, DISCHARGED
+    }
 
-    private Long patientID;
-    private Long citizenID;
-    private Long facilityID;
-    private LocalDateTime admissionDate;
-    private LocalDateTime dischargeDate;
-    private String status;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long patientId;
 
-    // Default Constructor
-    public Patient() {}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "citizen_id", nullable = false)
+    private User citizen;
 
-    // Getters and Setters
-    public Long getPatientID() { return patientID; }
-    public void setPatientID(Long patientID) { this.patientID = patientID; }
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "emergency_id", nullable = false)
+    private Emergency emergency;
 
-    public Long getCitizenID() { return citizenID; }
-    public void setCitizenID(Long citizenID) { this.citizenID = citizenID; }
+    @Column(nullable = false)
+    private LocalDate admissionDate;
 
-    public Long getFacilityID() { return facilityID; }
-    public void setFacilityID(Long facilityID) { this.facilityID = facilityID; }
+    private LocalDate dischargeDate;
 
-    public LocalDateTime getAdmissionDate() { return admissionDate; }
-    public void setAdmissionDate(LocalDateTime admissionDate) { this.admissionDate = admissionDate; }
+    private String ward;
 
-    public LocalDateTime getDischargeDate() { return dischargeDate; }
-    public void setDischargeDate(LocalDateTime dischargeDate) { this.dischargeDate = dischargeDate; }
+    @Column(columnDefinition = "TEXT")
+    private String notes;
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private Status status = Status.ADMITTED;
 }
