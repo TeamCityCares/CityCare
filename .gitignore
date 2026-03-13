@@ -1,2 +1,5 @@
-/.idea/
-/.ai/
+# IntelliJ IDEA internal settings
+.idea/
+
+# Local AI tool data/indices
+.ai/
