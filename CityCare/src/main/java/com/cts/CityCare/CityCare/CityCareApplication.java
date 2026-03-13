@@ -3,6 +3,7 @@ package com.cts.CityCare.CityCare;
 import com.cts.CityCare.CityCare.entity.Ambulance;
 import com.cts.CityCare.CityCare.entity.Emergency;
 import com.cts.CityCare.CityCare.service.AdminService;
+import com.cts.CityCare.CityCare.service.EmergencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
