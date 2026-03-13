@@ -23,4 +23,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // Used by admin to list active staff only
     List<User> findByRoleAndStatus(User.Role role, User.Status status);
+
 }
