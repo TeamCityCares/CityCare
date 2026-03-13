@@ -10,6 +10,11 @@ import java.util.Optional;
 
 @Repository
 public interface CitizenRepository extends JpaRepository<Citizen, Long> {
-   Optional<Citizen> findByUserUserId(Long userId);
-   List<Citizen> findByStatus(CitizenStatus status);
+<<<<<<< HEAD
+    Optional<Citizen> findByUserUserId(Long userId);
+    List<Citizen> findByStatus(Citizen.Status status);
+=======
+//    Optional<Citizen> findByUserUserId(Long userId);
+//    List<Citizen> findByStatus(Citizen.Status status);
+>>>>>>> main
 }
