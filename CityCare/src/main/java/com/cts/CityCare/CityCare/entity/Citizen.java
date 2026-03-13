@@ -1,95 +1,53 @@
 package com.cts.CityCare.CityCare.entity;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "citizens")
-public class Citizen {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Citizen extends BaseEntity {
+
+    public enum Gender {
+        MALE, FEMALE, OTHER
+    }
+
+    public enum Status {
+        ACTIVE, INACTIVE
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long citizenId;
-    private String citizenName;
-    @Column(name = "citizen_DOB")
-    private LocalDate citizenDateOfBirth;
-    private String citizenGender;
-    private String citizenAddress;
-    private String citizenContactNumber;
+    private Long citizenId;
+
+    @NotBlank
+    @Column(nullable = false)
+    private String name;
+
+    private LocalDate dateOfBirth;
 
     @Enumerated(EnumType.STRING)
-    private CitizenStatus citizenStatus = CitizenStatus.ACTIVE;
+    private Gender gender;
 
-    public Citizen() {
+    @Column(columnDefinition = "TEXT")
+    private String address;
 
-    }
+    private String contactInfo;
 
-    public Citizen(long citizenId, String citizenName, LocalDate citizenDateOfBirth, String citizenGender, String citizenAddress, String citizenContactNumber) {
-        this.citizenId = citizenId;
-        this.citizenName = citizenName;
-        this.citizenDateOfBirth = citizenDateOfBirth;
-        this.citizenGender = citizenGender;
-        this.citizenAddress = citizenAddress;
-        this.citizenContactNumber = citizenContactNumber;
-        this.citizenStatus = CitizenStatus.ACTIVE;
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private Status status = Status.ACTIVE;
 
-
-    public long getCitizenId() {
-        return citizenId;
-    }
-
-    public void setCitizenId(long citizenId) {
-        this.citizenId = citizenId;
-    }
-
-    public String getCitizenName() {
-        return citizenName;
-    }
-
-    public void setCitizenName(String citizenName) {
-        this.citizenName = citizenName;
-    }
-
-    public LocalDate getCitizenDateOfBirth() {
-        return citizenDateOfBirth;
-    }
-
-    public void setCitizenDateOfBirth(LocalDate citizenDateOfBirth) {
-        this.citizenDateOfBirth = citizenDateOfBirth;
-    }
-
-    public String getCitizenGender() {
-        return citizenGender;
-    }
-
-    public void setCitizenGender(String citizenGender) {
-        this.citizenGender = citizenGender;
-    }
-
-    public String getCitizenAddress() {
-        return citizenAddress;
-    }
-
-    public void setCitizenAddress(String citizenAddress) {
-        this.citizenAddress = citizenAddress;
-    }
-
-    public String getCitizenContactNumber() {
-        return citizenContactNumber;
-    }
-
-    public void setCitizenContactNumber(String citizenContactNumber) {
-        this.citizenContactNumber = citizenContactNumber;
-    }
-
-    public CitizenStatus getCitizenStatus() {
-        return citizenStatus;
-    }
-
-    public void setCitizenStatus(CitizenStatus citizenStatus) {
-        this.citizenStatus = citizenStatus;
-    }
+    // Link to the User account of this citizen
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 }

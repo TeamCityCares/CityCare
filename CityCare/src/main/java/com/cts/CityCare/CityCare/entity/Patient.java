@@ -1,39 +1,64 @@
 package com.cts.CityCare.CityCare.entity;
 
 
-import java.time.LocalDateTime;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "patients")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Patient extends BaseEntity {
+
+    public enum Status {
+        ADMITTED, UNDER_OBSERVATION, STABLE, DISCHARGED
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long patientId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "citizen_id", nullable = false)
+    private User citizen;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "emergency_id", nullable = false)
+    private Emergency emergency;
+
+    @Column(nullable = false)
+    private LocalDate admissionDate;
+
+    private LocalDate dischargeDate;
+
+    private String ward;
+
+    @Column(columnDefinition = "TEXT")
+    private String notes;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private Status status = Status.ADMITTED;
 
 
-
-public class Patient {
-
-
-    private Long patientID;
-    private Long citizenID;
-    private Long facilityID;
-    private LocalDateTime admissionDate;
-    private LocalDateTime dischargeDate;
-    private String status;
-
-    // Default Constructor
-    public Patient() {}
-
-    // Getters and Setters
-    public Long getPatientID() { return patientID; }
-    public void setPatientID(Long patientID) { this.patientID = patientID; }
-
-    public Long getCitizenID() { return citizenID; }
-    public void setCitizenID(Long citizenID) { this.citizenID = citizenID; }
-
-    public Long getFacilityID() { return facilityID; }
-    public void setFacilityID(Long facilityID) { this.facilityID = facilityID; }
-
-    public LocalDateTime getAdmissionDate() { return admissionDate; }
-    public void setAdmissionDate(LocalDateTime admissionDate) { this.admissionDate = admissionDate; }
-
-    public LocalDateTime getDischargeDate() { return dischargeDate; }
-    public void setDischargeDate(LocalDateTime dischargeDate) { this.dischargeDate = dischargeDate; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "patientId=" + patientId +
+                ", citizenId=" + (citizen != null ? citizen.getUserId() : "null") +
+                ", emergencyId=" + (emergency != null ? emergency.getEmergencyId() : "null") +
+                ", admissionDate=" + admissionDate +
+                ", dischargeDate=" + dischargeDate +
+                ", ward='" + ward + '\'' +
+                ", status=" + status +
+                ", notes='" + notes + '\'' +
+                '}';
+    }
 }

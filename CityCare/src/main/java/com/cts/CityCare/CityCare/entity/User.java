@@ -1,6 +1,7 @@
 package com.cts.CityCare.CityCare.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

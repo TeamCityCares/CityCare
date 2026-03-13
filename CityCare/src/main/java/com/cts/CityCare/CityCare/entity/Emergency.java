@@ -1,43 +1,59 @@
 package com.cts.CityCare.CityCare.entity;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
+
 import java.time.LocalDateTime;
 
-public class Emergency {
-    private Integer emergencyId;
-    private Integer citizenId;
-    private String type;
+@Entity
+@Table(name = "emergencies")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Emergency extends BaseEntity {
+
+    public enum Type {
+        ACCIDENT, HEART_ATTACK, FIRE, STROKE, FALL, OTHER
+    }
+
+    public enum Status {
+        REPORTED, DISPATCHED, ADMITTED, CLOSED
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long emergencyId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "citizen_id", nullable = false)
+    private User citizen;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Type type;
+
+    @NotBlank
+    @Column(nullable = false)
     private String location;
-    private LocalDateTime date;
-    private String status;
 
-    public Emergency() {
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private Status status = Status.REPORTED;
 
-    public Emergency(Integer emergencyId, Integer citizenId, String type, String location, LocalDateTime date, String status) {
-        this.emergencyId = emergencyId;
-        this.citizenId = citizenId;
-        this.type = type;
-        this.location = location;
-        this.date = date;
-        this.status = status;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dispatcher_id")
+    private User dispatcher;
 
-    public Integer getEmergencyId() { return emergencyId; }
-    public void setEmergencyId(Integer emergencyId) { this.emergencyId = emergencyId; }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ambulance_id")
+    private Ambulance ambulance;
 
-    public Integer getCitizenId() { return citizenId; }
-    public void setCitizenId(Integer citizenId) { this.citizenId = citizenId; }
-
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
-
-    public String getLocation() { return location; }
-    public void setLocation(String location) { this.location = location; }
-
-    public LocalDateTime getDate() { return date; }
-    public void setDate(LocalDateTime date) { this.date = date; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    private LocalDateTime dispatchedAt;
 }
