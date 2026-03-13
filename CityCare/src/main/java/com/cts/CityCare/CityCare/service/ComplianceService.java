@@ -47,6 +47,7 @@ public class ComplianceService {
     }
 
     public List<ComplianceRecord> getAllRecords() {
+
         return complianceRepository.findAll();
     }
 
@@ -94,6 +95,7 @@ public class ComplianceService {
     }
 
     public List<Audit> getAuditsByOfficer(Long officerId) {
+
         return auditRepository.findByOfficerUserId(officerId);
     }
 
@@ -117,10 +119,12 @@ public class ComplianceService {
     }
 
     public List<AuditLog> getAllLogs() {
+
         return auditLogRepository.findAll();
     }
 
     public List<AuditLog> getLogsByUser(Long userId) {
+
         return auditLogRepository.findByUserUserId(userId);
     }
 }
