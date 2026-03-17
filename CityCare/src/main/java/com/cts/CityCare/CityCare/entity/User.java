@@ -1,5 +1,6 @@
 package com.cts.CityCare.CityCare.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Email;
@@ -53,5 +54,6 @@ public class User extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "facility_id")
+    @JsonIgnore
     private Facility facility;
 }
