@@ -1,8 +1,8 @@
 package com.cts.CityCare.CityCare;
 
 import com.cts.CityCare.CityCare.dto.request.AdmitPatientRequest;
-import com.cts.CityCare.CityCare.entity.Patient;
-import com.cts.CityCare.CityCare.entity.User;
+import com.cts.CityCare.CityCare.entity.*;
+import com.cts.CityCare.CityCare.service.ComplianceService;
 import com.cts.CityCare.CityCare.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -15,8 +15,10 @@ import java.util.Optional;
 @SpringBootApplication
 
 public class CityCareApplication implements CommandLineRunner {
-	@Autowired
-	private PatientService patientService;
+//	@Autowired
+//	private PatientService patientService;
+//	@Autowired
+//	ComplianceService complianceService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CityCareApplication.class, args);
@@ -24,7 +26,12 @@ public class CityCareApplication implements CommandLineRunner {
 	}
 	@Override
 	public void run(String... args) throws Exception {
-//		System.out.println("--- STARTING SERVICE TESTS ---");
+
+
+
+
+//		List<AuditLog> log1 = complianceService.getLogsByUser(1L);
+//		System.out.println(log1.get(1).getResource());
 //
 //		try {
 //

@@ -14,6 +14,19 @@ import java.time.LocalDate;
 @Builder
 public class ComplianceRecord extends BaseEntity {
 
+    @Override
+    public String toString() {
+        return "ComplianceRecord{" +
+                "complianceId=" + complianceId +
+                ", entityId=" + entityId +
+                ", type=" + type +
+                ", result=" + result +
+                ", date=" + date +
+                ", notes='" + notes + '\'' +
+                ", officer=" + officer +
+                '}';
+    }
+
     public enum EntityType {
         FACILITY, PATIENT, EMERGENCY
     }
