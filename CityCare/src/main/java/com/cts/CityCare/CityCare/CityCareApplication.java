@@ -40,12 +40,12 @@ public class CityCareApplication implements CommandLineRunner {
 ////				System.out.println(patient.getWard());
 ////			});
 ////
-////			Patient patient1 = patientService.updateStatus(1L,Patient.Status.STABLE);
+///			Patient patient1 = patientService.updateStatus(1L,Patient.Status.STABLE);
 ////			System.out.println(patient1.getStatus());
 //
 //
-//			Patient patient2 = patientService.getById(1L);
-//			System.out.println(patient2);
+		Patient patient2 = patientService.getById(1L);
+			System.out.println(patient2);
 //
 //			List<Patient> oyy = patientService.getByStatus(Patient.Status.STABLE);
 //			for(int i=0;i<oyy.size();i++){
