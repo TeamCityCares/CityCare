@@ -32,17 +32,17 @@ public class ComplianceController {
     private final UserRepository userRepository;
 
     // ── Compliance Records ────────────────────────────────────────────────────
-//
-//    @PostMapping("/records")
-//    @Operation(summary = "[COMPLIANCE_OFFICER/ADMIN] Create Compliance Record")
-//    public ResponseEntity<ApiResponse<ComplianceRecord>> createRecord(
-//            @Valid @RequestBody ComplianceRecordRequest request,
-//            @AuthenticationPrincipal UserDetails userDetails) {
-//        Long officerId = resolveUserId(userDetails);
-//        ComplianceRecord record = complianceService.createRecord(officerId, request);
-//        return ResponseEntity.status(HttpStatus.CREATED)
-//                .body(ApiResponse.ok("Compliance record created", record));
-//    }
+
+    @PostMapping("/records")
+    public ResponseEntity<ApiResponse<ComplianceRecord>> createRecord(
+            @Valid @RequestBody ComplianceRecordRequest request,
+            @RequestHeader(name = "officerId") Long officerId) { // Direct ID from Header
+
+        ComplianceRecord record = complianceService.createRecord(officerId, request);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.ok("Compliance record created by officer: " + officerId, record));
+    }
+
 
     @GetMapping("/records")
     @Operation(summary = "[ADMIN/COMPLIANCE_OFFICER] Get All Compliance Records")
@@ -70,16 +70,16 @@ public class ComplianceController {
 
     // ── Audits ────────────────────────────────────────────────────────────────
 
-//    @PostMapping("/audits")
-//    @Operation(summary = "[COMPLIANCE_OFFICER/ADMIN] Create Audit")
-//    public ResponseEntity<ApiResponse<Audit>> createAudit(
-//            @Valid @RequestBody AuditRequest request,
-//            @AuthenticationPrincipal UserDetails userDetails) {
-//        Long officerId = resolveUserId(userDetails);
-//        Audit audit = complianceService.createAudit(officerId, request);
-//        return ResponseEntity.status(HttpStatus.CREATED)
-//                .body(ApiResponse.ok("Audit created", audit));
-//    }
+    @PostMapping("/audits")
+    public ResponseEntity<ApiResponse<Audit>> createAudit(
+            @Valid @RequestBody AuditRequest request,
+            @RequestHeader(name = "officerId") Long officerId) { // Direct ID from Header
+
+        Audit audit = complianceService.createAudit(officerId, request);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.ok("Audit created by officer: " + officerId, audit));
+    }
+
 
     @GetMapping("/audits")
     @Operation(summary = "[ADMIN/COMPLIANCE_OFFICER] Get All Audits")
@@ -117,9 +117,5 @@ public class ComplianceController {
         return ResponseEntity.ok(ApiResponse.ok("Logs for user " + userId, complianceService.getLogsByUser(userId)));
     }
 
-//    private Long resolveUserId(UserDetails userDetails) {
-//        return userRepository.findByEmail(userDetails.getUsername())
-//                .orElseThrow(() -> new ResourceNotFoundException("Logged-in user not found"))
-//                .getUserId();
-//    }
+
 }
