@@ -46,4 +46,19 @@ public class Patient extends BaseEntity {
     @Column(nullable = false)
     @Builder.Default
     private Status status = Status.ADMITTED;
+
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "patientId=" + patientId +
+                ", citizenId=" + (citizen != null ? citizen.getUserId() : "null") +
+                ", emergencyId=" + (emergency != null ? emergency.getEmergencyId() : "null") +
+                ", admissionDate=" + admissionDate +
+                ", dischargeDate=" + dischargeDate +
+                ", ward='" + ward + '\'' +
+                ", status=" + status +
+                ", notes='" + notes + '\'' +
+                '}';
+    }
 }

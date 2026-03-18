@@ -14,4 +14,6 @@ public interface CitizenRepository extends JpaRepository<Citizen, Long> {
     Optional<Citizen> findByUserUserId(Long userId);
     List<Citizen> findByStatus(Citizen.Status status);
 
+
+
 }

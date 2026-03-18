@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ccc997f-531f-48d5-9f21-be141589bfab" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CityCare/src/main/java/com/cts/CityCare/CityCare/service/EmergencyService.java" afterDir="false" />
-    </list>
+    <list default="true" id="ef469c0d-3c2a-4801-b0f9-36b76c870c66" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,21 +14,17 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="McpProjectServerCommands">
-    <commands />
-    <urls />
-  </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 6
+  &quot;associatedIndex&quot;: 7
 }</component>
-  <component name="ProjectId" id="3AlH8s5ogEmvgss6hMFexctTwHj" />
+  <component name="ProjectId" id="3AksCY22SgNU7l5aE7kaFUYk8Aq" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -40,7 +34,6 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -51,38 +44,34 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "Spring Boot.CityCareApplication.executor": "Run",
-    "git-widget-placeholder": "dispatcher",
-    "ignore.virus.scanning.warn.message": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "patientrecord",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/2478288/OneDrive - Cognizant/Desktop/java/CityCare",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.annotationProcessors",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.cts.CityCare.CityCare.service" />
+    </key>
+  </component>
   <component name="RunManager">
-    <configuration name="CityCareApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UnknownPolicyInFreeMode" />
+    <configuration name="CityCareApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="CityCare" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.cts.CityCare.CityCare.CityCareApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cts.CityCare.CityCare.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Spring Boot.CityCareApplication" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -93,26 +82,13 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0ccc997f-531f-48d5-9f21-be141589bfab" name="Changes" comment="" />
-      <created>1773160083585</created>
+      <changelist id="ef469c0d-3c2a-4801-b0f9-36b76c870c66" name="Changes" comment="" />
+      <created>1773204264843</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1773160083585</updated>
+      <updated>1773204264843</updated>
+      <workItem from="1773204264846" duration="354000" />
     </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>
