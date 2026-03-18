@@ -39,6 +39,15 @@ public class AuthController {
               "password": "ravi1234",
               "phone": "9876543210"
             }
+                     create mode 100644 CityCare/src/main/java/com/cts/CityCare/CityCare/config/SecurityConfig.java
+                     create mode 100644 CityCare/src/main/java/com/cts/CityCare/CityCare/controller/AuthController.java
+                     create mode 100644 CityCare/src/main/java/com/cts/CityCare/CityCare/dto/request/LoginRequest.java
+                     create mode 100644 CityCare/src/main/java/com/cts/CityCare/CityCare/dto/request/RegisterRequest.java
+                     create mode 100644 CityCare/src/main/java/com/cts/CityCare/CityCare/dto/response/AuthResponse.java
+                     create mode 100644 CityCare/src/main/java/com/cts/CityCare/CityCare/security/JwtAuthFilter.java
+                     create mode 100644 CityCare/src/main/java/com/cts/CityCare/CityCare/security/JwtUtils.java
+                     create mode 100644 CityCare/src/main/java/com/cts/CityCare/CityCare/security/UserDetailsServiceImpl.java
+                     create mode 100644 CityCare/src/main/java/com/cts/CityCare/CityCare/service/AuthService.java
             """
     )
     public ResponseEntity<ApiResponse<AuthResponse>> register(
