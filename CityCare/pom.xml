@@ -12,7 +12,7 @@
 		<relativePath/>
 	</parent>
 
-	<groupId>com.citycare</groupId>
+	<groupId>com.cts.citycare</groupId>
 	<artifactId>citycare</artifactId>
 	<version>1.0.0</version>
 	<name>CityCare</name>
