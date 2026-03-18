@@ -21,14 +21,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/citizens")
 @RequiredArgsConstructor
-@Tag(name = "6. Citizens", description = "Citizen profile and document management")
 public class CitizenController {
 
     private final CitizenService citizenService;
 
 
     @PostMapping("/profile/{userId}")
-    @Operation(summary = "[CITIZEN] Create or Update Citizen Profile")
     public ResponseEntity<ApiResponse<Citizen>> upsertProfile(
             @PathVariable Long userId,
             @Valid @RequestBody CitizenProfileRequest request) {
@@ -38,25 +36,21 @@ public class CitizenController {
     }
 
     @GetMapping("/profile/{userId}")
-    @Operation(summary = "[CITIZEN] Get My Profile")
     public ResponseEntity<ApiResponse<Citizen>> getMyProfile(@PathVariable Long userId) {
         return ResponseEntity.ok(ApiResponse.ok("Citizen profile", citizenService.getProfile(userId)));
     }
 
     @GetMapping
-    @Operation(summary = "[ADMIN] Get All Citizens")
     public ResponseEntity<ApiResponse<List<Citizen>>> getAll() {
         return ResponseEntity.ok(ApiResponse.ok("All citizens", citizenService.getAll()));
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "[ANY] Get Citizen by ID")
     public ResponseEntity<ApiResponse<Citizen>> getById(@PathVariable Long id) {
         return ResponseEntity.ok(ApiResponse.ok("Citizen details", citizenService.getById(id)));
     }
 
     @PostMapping("/{id}/documents")
-    @Operation(summary = "[CITIZEN/ADMIN] Upload Document")
     public ResponseEntity<ApiResponse<CitizenDocument>> uploadDocument(
             @PathVariable Long id,
             @RequestParam("file") MultipartFile file) {
@@ -72,13 +66,11 @@ public class CitizenController {
     }
 
     @GetMapping("/{id}/documents")
-    @Operation(summary = "[ANY] Get Documents for Citizen")
     public ResponseEntity<ApiResponse<List<CitizenDocument>>> getDocuments(@PathVariable Long id) {
         return ResponseEntity.ok(ApiResponse.ok("Documents", citizenService.getDocuments(id)));
     }
 
     @PatchMapping("/documents/{docId}/verify")
-    @Operation(summary = "[ADMIN] Verify or Reject Document")
     public ResponseEntity<ApiResponse<CitizenDocument>> verifyDocument(
             @PathVariable Long docId,
             @RequestParam CitizenDocument.VerificationStatus status) {
