@@ -9,10 +9,7 @@ import java.util.List;
 
 @Repository
 public interface FacilityRepository extends JpaRepository<Facility, Long> {
+
     List<Facility> findByType(Facility.Type type);
-
     List<Facility> findByStatus(Facility.Status status);
-
-
-
 }

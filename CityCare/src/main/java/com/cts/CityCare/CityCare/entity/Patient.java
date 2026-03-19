@@ -2,6 +2,7 @@ package com.cts.CityCare.CityCare.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,10 +27,12 @@ public class Patient extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "citizen_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User citizen;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "emergency_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Emergency emergency;
 
     @Column(nullable = false)

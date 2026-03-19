@@ -66,6 +66,7 @@ public class FacilityService {
         return facilityRepository.findByType(type);
     }
 
+    @Transactional(readOnly = true)
     public List<Staff> getStaffByFacility(Long facilityId) {
         facilityRepository.findById(facilityId)
                 .orElseThrow(() -> new ResourceNotFoundException("Facility", facilityId));
