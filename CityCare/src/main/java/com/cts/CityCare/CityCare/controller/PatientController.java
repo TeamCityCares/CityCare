@@ -4,6 +4,8 @@ import com.cts.CityCare.CityCare.dto.request.AdmitPatientRequest;
 import com.cts.CityCare.CityCare.dto.response.ApiResponse;
 import com.cts.CityCare.CityCare.entity.Patient;
 import com.cts.CityCare.CityCare.service.PatientService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

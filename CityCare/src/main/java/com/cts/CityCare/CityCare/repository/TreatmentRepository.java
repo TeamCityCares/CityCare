@@ -10,8 +10,9 @@ import java.util.List;
 @Repository
 public interface TreatmentRepository extends JpaRepository<Treatment, Long> {
 
+
     List<Treatment> findByPatientPatientId(Long patientId);
 
-    List<Treatment> findByAssignedByUserId(Long staffId);
+    List<Treatment> findByAssignedByUserId(Long userId);
 
 }
