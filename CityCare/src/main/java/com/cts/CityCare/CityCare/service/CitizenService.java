@@ -24,7 +24,6 @@ public class CitizenService {
     private final CitizenDocumentRepository documentRepository;
     private final UserRepository userRepository;
 
-
     @Transactional
     public Citizen createOrUpdateProfile(Long userId, CitizenProfileRequest req) {
         User user = userRepository.findById(userId)
