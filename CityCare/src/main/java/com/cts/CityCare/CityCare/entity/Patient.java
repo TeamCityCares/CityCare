@@ -27,7 +27,7 @@ public class Patient extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "citizen_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User citizen;
 
     @OneToOne(fetch = FetchType.LAZY)
