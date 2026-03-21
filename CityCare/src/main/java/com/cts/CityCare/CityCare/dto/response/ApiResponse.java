@@ -28,5 +28,9 @@ public class ApiResponse<T> {
     public static <T> ApiResponse<T> error(String message) {
         return ApiResponse.<T>builder().success(false).message(message).build();
     }
+
+    public static <T> ApiResponse<T> validationError(String message, T errors) {
+        return ApiResponse.<T>builder().success(false).message(message).data(errors).build();
+    }
 }
 

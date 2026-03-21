@@ -4,14 +4,15 @@ import com.cts.CityCare.CityCare.dto.request.AmbulanceRequest;
 import com.cts.CityCare.CityCare.dto.request.CreateStaffRequest;
 import com.cts.CityCare.CityCare.entity.Ambulance;
 import com.cts.CityCare.CityCare.entity.Facility;
+import com.cts.CityCare.CityCare.entity.Staff; // Added Import
 import com.cts.CityCare.CityCare.entity.User;
 import com.cts.CityCare.CityCare.exception.BadRequestException;
 import com.cts.CityCare.CityCare.exception.ResourceNotFoundException;
 import com.cts.CityCare.CityCare.repository.AmbulanceRepository;
 import com.cts.CityCare.CityCare.repository.FacilityRepository;
+import com.cts.CityCare.CityCare.repository.StaffRepository; // Added Import
 import com.cts.CityCare.CityCare.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +26,7 @@ public class AdminService {
     private final UserRepository userRepository;
     private final AmbulanceRepository ambulanceRepository;
     private final FacilityRepository facilityRepository;
-//    private final PasswordEncoder passwordEncoder;
+    private final StaffRepository staffRepository; // Injected StaffRepository
 
     @Transactional
     public User createStaff(CreateStaffRequest req) {
@@ -35,8 +36,6 @@ public class AdminService {
         }
         return createAccount(req);
     }
-
-
 
     @Transactional
     public User createDispatcher(CreateStaffRequest req) {
@@ -76,13 +75,34 @@ public class AdminService {
         User user = User.builder()
                 .name(req.getName())
                 .email(req.getEmail())
-//                .password(passwordEncoder.encode(req.getPassword()))
                 .password(req.getPassword())
                 .role(req.getRole())
                 .phone(req.getPhone())
                 .facility(facility)
                 .build();
-        return userRepository.save(user);
+
+        User savedUser = userRepository.save(user);
+
+        // Logic to populate the Staff table if the role is DOCTOR or NURSE
+        if (req.getRole() == User.Role.DOCTOR || req.getRole() == User.Role.NURSE) {
+            // Your Staff entity requires a facility (nullable = false), so we check it here
+            if (facility == null) {
+                throw new BadRequestException("Facility ID is mandatory for Doctor or Nurse roles.");
+            }
+
+            Staff staff = Staff.builder()
+                    .name(savedUser.getName())
+                    .role(Staff.Role.valueOf(savedUser.getRole().name()))
+                    .contactInfo(savedUser.getPhone())
+                    .user(savedUser) // Link to the saved User
+                    .facility(facility)
+                    .status(Staff.Status.ACTIVE)
+                    .build();
+
+            staffRepository.save(staff);
+        }
+
+        return savedUser;
     }
 
     @Transactional

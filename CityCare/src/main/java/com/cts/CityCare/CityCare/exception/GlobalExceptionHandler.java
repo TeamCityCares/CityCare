@@ -46,7 +46,31 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.error(ex.getMessage()));
     }
 
-    // 6. Generic Catch-All (500) - For any unexpected crashes
+    // 6. Validation Errors (400) - e.g. Invalid Email format, Name too short
+    @ExceptionHandler(org.springframework.web.bind.MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiResponse<Object>> handleValidationExceptions(org.springframework.web.bind.MethodArgumentNotValidException ex) {
+        java.util.Map<String, String> errors = new java.util.HashMap<>();
+        for (org.springframework.validation.FieldError error : ex.getBindingResult().getFieldErrors()) {
+            errors.put(error.getField(), error.getDefaultMessage());
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.validationError("Validation failed", errors));
+    }
+
+    // 7. Database/JPA Validation Errors (400) - e.g. Phone number format fails during database save
+    @ExceptionHandler(jakarta.validation.ConstraintViolationException.class)
+    public ResponseEntity<ApiResponse<Object>> handleConstraintViolationExceptions(jakarta.validation.ConstraintViolationException ex) {
+        java.util.Map<String, String> errors = new java.util.HashMap<>();
+        for (jakarta.validation.ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+            String path = violation.getPropertyPath().toString();
+            String fieldName = path.substring(path.lastIndexOf('.') + 1); // Extract exact field name
+            errors.put(fieldName, violation.getMessage());
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.validationError("Database validation failed", errors));
+    }
+
+    // 8. Generic Catch-All (500) - For any unexpected crashes
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Object>> handleGlobal(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

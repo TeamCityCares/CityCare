@@ -28,7 +28,7 @@ public class CitizenDocument extends BaseEntity {
 
 
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "MEDIUMBLOB")
     private byte[] documentData;
 
     private LocalDate uploadedDate;

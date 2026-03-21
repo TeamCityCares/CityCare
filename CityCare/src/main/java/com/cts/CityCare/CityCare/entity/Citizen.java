@@ -2,6 +2,8 @@ package com.cts.CityCare.CityCare.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -28,9 +30,11 @@ public class Citizen extends BaseEntity {
     private Long citizenId;
 
     @NotBlank
+    @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")
     @Column(nullable = false)
     private String name;
 
+    @Past(message = "Date of birth must be in the past")
     private LocalDate dateOfBirth;
 
     @Enumerated(EnumType.STRING)

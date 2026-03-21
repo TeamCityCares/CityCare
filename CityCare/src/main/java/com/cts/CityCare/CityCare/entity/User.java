@@ -1,10 +1,11 @@
 package com.cts.CityCare.CityCare.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Entity
@@ -29,6 +30,7 @@ public class User extends BaseEntity {
     private Long userId;
 
     @NotBlank
+    @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")
     @Column(nullable = false)
     private String name;
 
@@ -45,6 +47,7 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private Role role;
 
+    @Pattern(regexp="^\\+?[0-9 .()-]{7,15}$", message = "Phone must be a valid number")
     private String phone;
 
     @Enumerated(EnumType.STRING)
@@ -54,6 +57,5 @@ public class User extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "facility_id")
-    @JsonIgnore
     private Facility facility;
 }

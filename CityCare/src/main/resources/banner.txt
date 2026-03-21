@@ -1,0 +1,11 @@
+${AnsiColor.BLUE}  ____ _ _          ____               
+ / ___(_) |_ _     / ___|__ _ _ __ ___ 
+| |   | | __| | | | |   / _` | '__/ _ \
+| |___| | |_| |_| | |__| (_| | | |  __/
+ \____|_|\__|\__, | \____\__,_|_|  \___|
+             |___/                     
+
+${AnsiColor.CYAN}
+
+${AnsiStyle.BOLD}${AnsiColor.BLUE}:: CityCare Medical Response System ::${AnsiStyle.NORMAL}
+

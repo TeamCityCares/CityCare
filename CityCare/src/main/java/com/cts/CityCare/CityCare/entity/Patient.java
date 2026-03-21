@@ -1,9 +1,8 @@
 package com.cts.CityCare.CityCare.entity;
 
-
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -27,19 +26,19 @@ public class Patient extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "citizen_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User citizen;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "emergency_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Emergency emergency;
 
+    @PastOrPresent(message = "Admission date cannot be in the future")
     @Column(nullable = false)
     private LocalDate admissionDate;
 
     private LocalDate dischargeDate;
 
+    @Size(max = 50, message = "Ward name is too long")
     private String ward;
 
     @Column(columnDefinition = "TEXT")
