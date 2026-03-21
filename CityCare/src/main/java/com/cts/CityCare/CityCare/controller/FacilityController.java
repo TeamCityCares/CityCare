@@ -6,6 +6,7 @@ import com.cts.CityCare.CityCare.dto.response.ApiResponse;
 import com.cts.CityCare.CityCare.entity.Facility;
 import com.cts.CityCare.CityCare.entity.Staff;
 import com.cts.CityCare.CityCare.service.FacilityService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,9 @@ public class FacilityController {
 
     private final FacilityService facilityService;
 
+    // Trigger validation for creating a facility
     @PostMapping
-    public ResponseEntity<ApiResponse<Facility>> create(@RequestBody FacilityRequest request) {
+    public ResponseEntity<ApiResponse<Facility>> create(@Valid @RequestBody FacilityRequest request) {
         Facility facility = facilityService.createFacility(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.ok("Facility created", facility));
     }
@@ -36,8 +38,9 @@ public class FacilityController {
         return ResponseEntity.ok(ApiResponse.ok("Facility", facilityService.getById(id)));
     }
 
+    // Trigger validation for updating a facility
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<Facility>> update(@PathVariable Long id, @RequestBody FacilityRequest request) {
+    public ResponseEntity<ApiResponse<Facility>> update(@PathVariable Long id, @Valid @RequestBody FacilityRequest request) {
         Facility facility = facilityService.updateFacility(id, request);
         return ResponseEntity.ok(ApiResponse.ok("Facility updated", facility));
     }
