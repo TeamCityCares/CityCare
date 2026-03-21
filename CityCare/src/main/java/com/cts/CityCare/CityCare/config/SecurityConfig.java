@@ -58,10 +58,10 @@ public class SecurityConfig {
                         // Public endpoints (Login/Register via JSON)
                         .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
 
-                        // Protected endpoints (Requires Basic Auth Header)
-                        .requestMatchers("/emergencies/report", "/emergencies/my").hasRole("CITIZEN")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/treatments/**","/patients/**").hasAnyRole("DOCTOR", "NURSE","ADMIN")
+//                        // Protected endpoints (Requires Basic Auth Header)
+                        .requestMatchers("/emergencies/report", "/emergencies/my").permitAll()
+                        .requestMatchers("/admin/**").permitAll()
+                        .requestMatchers("/treatments/**","/patients/**").permitAll()
 
                         .anyRequest().authenticated()
                 )
