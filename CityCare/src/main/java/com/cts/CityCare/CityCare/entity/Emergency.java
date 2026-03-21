@@ -1,8 +1,8 @@
 package com.cts.CityCare.CityCare.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -30,7 +30,6 @@ public class Emergency extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "citizen_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User citizen;
 
     @Enumerated(EnumType.STRING)
@@ -38,9 +37,11 @@ public class Emergency extends BaseEntity {
     private Type type;
 
     @NotBlank
+    @Size(max = 255, message = "Location is too long")
     @Column(nullable = false)
     private String location;
 
+    @Size(max = 1000, message = "Description too long")
     @Column(columnDefinition = "TEXT")
     private String description;
 

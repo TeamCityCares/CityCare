@@ -3,6 +3,8 @@ package com.cts.CityCare.CityCare.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 
@@ -27,9 +29,11 @@ public class Ambulance extends BaseEntity {
     private Long ambulanceId;
 
     @NotBlank
+    @Pattern(regexp = "^[A-Z0-9-]{4,15}$", message = "Vehicle number must be alphanumeric and appropriately formatted")
     @Column(name = "vehicle_number", nullable = false, unique = true)
     private String vehicleNumber; // e.g. "TN-01-AB-1234"
 
+    @Size(max = 100)
     private String model; // e.g. "Toyota HiAce Advanced Life Support"
 
     @Enumerated(EnumType.STRING)

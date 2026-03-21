@@ -1,7 +1,8 @@
 package com.cts.CityCare.CityCare.service;
 
-
 import com.cts.CityCare.CityCare.dto.request.FacilityRequest;
+import com.cts.CityCare.CityCare.dto.response.FacilityResponse;
+import com.cts.CityCare.CityCare.dto.response.StaffResponse;
 import com.cts.CityCare.CityCare.entity.Facility;
 import com.cts.CityCare.CityCare.entity.Staff;
 import com.cts.CityCare.CityCare.exception.ResourceNotFoundException;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,20 +23,19 @@ public class FacilityService {
     private final StaffRepository staffRepository;
 
     @Transactional
-    public Facility createFacility(FacilityRequest req) {
-        Facility facility = Facility.builder()   //we use builder because it give us proper naming of parameters as compare to constructor
+    public FacilityResponse createFacility(FacilityRequest req) {
+        Facility facility = Facility.builder()
                 .name(req.getName())
                 .type(req.getType())
                 .location(req.getLocation())
                 .capacity(req.getCapacity())
                 .status(req.getStatus() != null ? req.getStatus() : Facility.Status.ACTIVE)
                 .build();
-        return facilityRepository.save(facility);
+        return mapToFacilityResponse(facilityRepository.save(facility));
     }
 
-
     @Transactional
-    public Facility updateFacility(Long id, FacilityRequest req){
+    public FacilityResponse updateFacility(Long id, FacilityRequest req){
         Facility facility = facilityRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Facility", id));
         facility.setName(req.getName());
@@ -42,42 +43,70 @@ public class FacilityService {
         facility.setLocation(req.getLocation());
         facility.setCapacity(req.getCapacity());
         if(req.getStatus() != null) facility.setStatus(req.getStatus());
-        return facilityRepository.save(facility);
+        return mapToFacilityResponse(facilityRepository.save(facility));
     }
 
-
-
-    public Facility getById(Long id) {
+    public FacilityResponse getById(Long id) {
         return facilityRepository.findById(id)
+                .map(this::mapToFacilityResponse)
                 .orElseThrow(() -> new ResourceNotFoundException("Facility", id));
     }
 
-
-    public List<Facility> getAll() {
-        return facilityRepository.findAll();
+    public List<FacilityResponse> getAll() {
+        return facilityRepository.findAll().stream()
+                .map(this::mapToFacilityResponse)
+                .collect(Collectors.toList());
     }
 
-
-    public List<Facility> getByStatus(Facility.Status status) {
-        return facilityRepository.findByStatus(status);
+    public List<FacilityResponse> getByStatus(Facility.Status status) {
+        return facilityRepository.findByStatus(status).stream()
+                .map(this::mapToFacilityResponse)
+                .collect(Collectors.toList());
     }
 
-    public List<Facility> getByType(Facility.Type type) {
-        return facilityRepository.findByType(type);
+    public List<FacilityResponse> getByType(Facility.Type type) {
+        return facilityRepository.findByType(type).stream()
+                .map(this::mapToFacilityResponse)
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<Staff> getStaffByFacility(Long facilityId) {
+    public List<StaffResponse> getStaffByFacility(Long facilityId) {
         facilityRepository.findById(facilityId)
                 .orElseThrow(() -> new ResourceNotFoundException("Facility", facilityId));
-        return staffRepository.findByFacilityFacilityId(facilityId);
+        return staffRepository.findByFacilityFacilityId(facilityId).stream()
+                .map(this::mapToStaffResponse)
+                .collect(Collectors.toList());
     }
 
     @Transactional
-    public Facility updateStatus(Long id, Facility.Status status) {
+    public FacilityResponse updateStatus(Long id, Facility.Status status) {
         Facility facility = facilityRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Facility", id));
         facility.setStatus(status);
-        return facilityRepository.save(facility);
+        return mapToFacilityResponse(facilityRepository.save(facility));
+    }
+
+    private FacilityResponse mapToFacilityResponse(Facility facility) {
+        return FacilityResponse.builder()
+                .facilityId(facility.getFacilityId())
+                .name(facility.getName())
+                .type(facility.getType())
+                .location(facility.getLocation())
+                .capacity(facility.getCapacity())
+                .status(facility.getStatus())
+                .build();
+    }
+
+    private StaffResponse mapToStaffResponse(Staff staff) {
+        return StaffResponse.builder()
+                .staffId(staff.getP()) // Uses 'p' safely 
+                .name(staff.getName())
+                .role(staff.getRole())
+                .contactInfo(staff.getContactInfo())
+                .status(staff.getStatus())
+                .facilityId(staff.getFacility() != null ? staff.getFacility().getFacilityId() : null)
+                .userId(staff.getUser() != null ? staff.getUser().getUserId() : null)
+                .build();
     }
 }

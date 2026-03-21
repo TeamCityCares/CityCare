@@ -1,8 +1,7 @@
 package com.cts.CityCare.CityCare.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -26,18 +25,19 @@ public class Treatment extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Patient patient;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assigned_by", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User assignedBy;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
+    @Size(max = 100)
     private String medicationName;
+    
+    @Size(max = 50)
     private String dosage;
 
     @Builder.Default

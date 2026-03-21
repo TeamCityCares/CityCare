@@ -1,9 +1,8 @@
 package com.cts.CityCare.CityCare.entity;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Entity
@@ -27,12 +26,12 @@ public class Staff extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long p;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "facility_id", nullable = false)
     private Facility facility;
 
     @NotBlank
+    @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")
     @Column(nullable = false)
     private String name;
 
@@ -48,7 +47,6 @@ public class Staff extends BaseEntity {
     private Status status = Status.ACTIVE;
 
     // Link to User account
-    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
