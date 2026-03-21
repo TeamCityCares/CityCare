@@ -2,12 +2,14 @@ package com.cts.CityCare.CityCare.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Data
 public class TreatmentRequest {
 
     @NotNull(message = "Patient ID is required")
+    @Positive(message = "Patient ID must be a valid positive number")
     private Long patientId;
 
     @NotBlank(message = "Treatment description is required")
