@@ -38,9 +38,9 @@ public class AuditLogAspect {
         if (result == null || result instanceof AuditLog) {
             return; // Prevent infinite loops! Don't audit the audit logs.
         }
-        
+
         String resourceName = result.getClass().getSimpleName();
-        saveAuditLog("SAVED", resourceName);
+        saveAuditLog("SAVED", resourceName, result);
     }
 
     @AfterReturning(pointcut = "repositoryDeleteMethods()")
@@ -50,16 +50,21 @@ public class AuditLogAspect {
         if (args != null && args.length > 0 && args[0] != null) {
             Object entity = args[0];
             if (entity instanceof AuditLog) return;
-            
+
             String resourceName = entity.getClass().getSimpleName();
-            saveAuditLog("DELETED", resourceName);
+            saveAuditLog("DELETED", resourceName, null);
         } else {
-            saveAuditLog("DELETED", "Unknown Resource");
+            saveAuditLog("DELETED", "Unknown Resource", null);
         }
     }
 
-    private void saveAuditLog(String action, String resource) {
+    private void saveAuditLog(String action, String resource, Object entity) {
         User currentUser = getCurrentUser();
+
+        // If no user is logged in (like during registration), but the entity being saved IS a User, use that user!
+        if (currentUser == null && entity instanceof User registeredUser) {
+            currentUser = registeredUser;
+        }
 
         AuditLog log = AuditLog.builder()
                 .action(action)
