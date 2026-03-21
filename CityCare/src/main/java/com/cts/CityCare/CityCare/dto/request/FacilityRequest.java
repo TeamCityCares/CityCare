@@ -1,8 +1,10 @@
 package com.cts.CityCare.CityCare.dto.request;
 
 import com.cts.CityCare.CityCare.entity.Facility;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 
@@ -11,16 +13,19 @@ import lombok.Data;
 @Data
 public class FacilityRequest {
 
-    @NotBlank(message = "Name is Required")
+    @NotBlank(message = "Facility name is required")
+    @Size(min = 3, max = 100, message = "Name must be between 3 and 100 characters")
     private String name;
 
-    @NotNull(message = "Type is Required")
+    @NotNull(message = "Facility type is required (e.g., HOSPITAL, PARK, SCHOOL)")
     private Facility.Type type;
 
-    @NotBlank(message = "Location is Required")
+    @NotBlank(message = "Location address is required")
     private String location;
 
+    @Min(value = 0, message = "Capacity cannot be negative")
     private int capacity;
 
+    @NotNull(message = "Initial status is required")
     private Facility.Status status;
 }

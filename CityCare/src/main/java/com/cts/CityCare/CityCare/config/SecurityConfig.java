@@ -56,7 +56,7 @@ public class SecurityConfig {
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         // Public endpoints (Login/Register via JSON)
-                        .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/citizens/**").permitAll()
+                        .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/citizens/**", "/facilities/**").permitAll()
 
                         // Protected endpoints (Requires Basic Auth Header)
                         .requestMatchers("emergencies/**","/emergencies/report", "/emergencies/my").permitAll()
