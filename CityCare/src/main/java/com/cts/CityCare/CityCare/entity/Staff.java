@@ -25,7 +25,7 @@ public class Staff extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long p;
+    private Long staffId;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
