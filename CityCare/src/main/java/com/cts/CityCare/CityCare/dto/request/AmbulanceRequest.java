@@ -16,4 +16,5 @@ public class AmbulanceRequest {
     @NotBlank(message = "Model name is required")
     @Size(min = 2, max = 50, message = "Model must be between 2 and 50 characters")
     private String model;
+
 }
