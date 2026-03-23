@@ -73,7 +73,12 @@ public class TreatmentService {
     }
 
     public List<TreatmentSummaryResponse> getForPatient(Long patientId) {
+        if (!patientRepository.existsById(patientId)) {
+            // Idhi Exception throw chesthundhi, appudu automatic ga 404 Error vasthundhi
+            throw new ResourceNotFoundException("Patient", patientId);
+        }
         List<Treatment> treatments = treatmentRepository.findByPatientPatientId(patientId);
+
         List<TreatmentSummaryResponse> responseList = new ArrayList<>();
 
         for (Treatment t : treatments) {
@@ -110,6 +115,9 @@ public class TreatmentService {
 
 
    public List<TreatmentSummaryResponse> getMyAssigned(Long staffId) {
+       if (!userRepository.existsById(staffId)) {
+           throw new ResourceNotFoundException("Staff", staffId);
+       }
 
        List<Treatment> treatments = treatmentRepository.findByAssignedByUserId(staffId);
 

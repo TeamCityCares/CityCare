@@ -87,6 +87,10 @@ public class CitizenService {
     }
 
     public List<CitizenDocument> getDocuments(Long citizenId) {
+        if (!citizenRepository.existsById(citizenId)) {
+            throw new ResourceNotFoundException("Citizen not found: " + citizenId);
+        }
         return documentRepository.findByCitizenCitizenId(citizenId);
+
     }
 }
