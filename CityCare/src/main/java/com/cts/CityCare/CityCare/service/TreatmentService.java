@@ -1,6 +1,7 @@
 package com.cts.CityCare.CityCare.service;
 
 import com.cts.CityCare.CityCare.dto.request.TreatmentRequest;
+import com.cts.CityCare.CityCare.dto.request.TreatmentSummaryResponse;
 import com.cts.CityCare.CityCare.entity.Patient;
 import com.cts.CityCare.CityCare.entity.Treatment;
 import com.cts.CityCare.CityCare.entity.User;
@@ -12,6 +13,7 @@ import com.cts.CityCare.CityCare.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.ArrayList;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -70,16 +72,78 @@ public class TreatmentService {
         return treatmentRepository.save(treatment);
     }
 
-    public List<Treatment> getForPatient(Long patientId) {
-        return treatmentRepository.findByPatientPatientId(patientId);
+    public List<TreatmentSummaryResponse> getForPatient(Long patientId) {
+        List<Treatment> treatments = treatmentRepository.findByPatientPatientId(patientId);
+        List<TreatmentSummaryResponse> responseList = new ArrayList<>();
+
+        for (Treatment t : treatments) {
+
+            TreatmentSummaryResponse dto = TreatmentSummaryResponse.builder()
+                    .treatmentId(t.getTreatmentId())
+                    .patientId(t.getPatient().getPatientId())
+                    .patientName(t.getPatient().getCitizen().getName())
+
+                    // Fields from Patient Entity
+                    .admissionDate(t.getPatient().getAdmissionDate())
+                    .dischargeDate(t.getPatient().getDischargeDate())
+                    .ward(t.getPatient().getWard())
+                    .notes(t.getPatient().getNotes())
+                    .patientStatus(t.getPatient().getStatus().toString())
+
+                    // Field from User Entity (Staff)
+                    .assignedByDoctor(t.getAssignedBy().getName())
+
+                    // Fields from Treatment Entity
+                    .description(t.getDescription())
+                    .medicationName(t.getMedicationName())
+                    .dosage(t.getDosage())
+                    .startDate(t.getStartDate())
+                    .endDate(t.getEndDate())
+                    .status(t.getStatus())
+                    .build();
+
+            responseList.add(dto);
+        }
+
+        return responseList;
     }
 
-    public List<Treatment> getMyAssigned(Long staffId) {
-        return treatmentRepository.findByAssignedByUserId(staffId);
-    }
 
-    public Treatment getById(Long id) {
-        return treatmentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Treatment", id));
-    }
+   public List<TreatmentSummaryResponse> getMyAssigned(Long staffId) {
+
+       List<Treatment> treatments = treatmentRepository.findByAssignedByUserId(staffId);
+
+       List<TreatmentSummaryResponse> responseList = new ArrayList<>();
+
+       for (Treatment t : treatments) {
+           // DTO building with all fields
+           TreatmentSummaryResponse dto = TreatmentSummaryResponse.builder()
+                   .treatmentId(t.getTreatmentId())
+                   .patientId(t.getPatient().getPatientId())
+                   .patientName(t.getPatient().getCitizen().getName())
+
+                   // Patient Admission Details
+                   .admissionDate(t.getPatient().getAdmissionDate())
+                   .dischargeDate(t.getPatient().getDischargeDate())
+                   .ward(t.getPatient().getWard())
+                   .notes(t.getPatient().getNotes())
+                   .patientStatus(t.getPatient().getStatus().toString()) //here directly we cant assign the enums directly to string this is one blocker
+
+                   // Staff (Doctor/Nurse) Details
+                   .assignedByDoctor(t.getAssignedBy().getName())
+
+                   // Treatment Details
+                   .description(t.getDescription())
+                   .medicationName(t.getMedicationName())
+                   .dosage(t.getDosage())
+                   .startDate(t.getStartDate())
+                   .endDate(t.getEndDate())
+                   .status(t.getStatus())
+                   .build();
+
+           responseList.add(dto);
+       }
+
+       return responseList;
+   }
 }

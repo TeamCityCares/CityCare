@@ -1,16 +1,19 @@
 package com.cts.CityCare.CityCare.dto.request;
 
-import com.cts.CityCare.CityCare.entity.User;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class CreateStaffRequest {
+public class RegisterRequest {
 
     @NotBlank(message = "Name is required")
     @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
     @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Name must contain only letters and spaces")
     private String name;
+
 
     @Email(message = "Provide a valid email address")
     @NotBlank(message = "Email is required")
@@ -22,15 +25,7 @@ public class CreateStaffRequest {
             message = "Password must contain at least one uppercase letter, one lowercase letter, and one number")
     private String password;
 
-    @NotNull(message = "Role is required")
-    private User.Role role;
-
     @NotBlank(message = "Phone number is required")
     @Pattern(regexp = "^\\d{10}$", message = "Phone number must be exactly 10 digits")
-    private String phone;
-
-    // Optional: link to a facility (for DOCTOR/NURSE/DISPATCHER)
-    // If provided, we validate it isn't a negative number
-//    @Positive(message = "")
-    private Long facilityId;
+    private String phone; // Optional
 }

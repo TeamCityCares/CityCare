@@ -1,6 +1,7 @@
 package com.cts.CityCare.CityCare.controller;
 
 import com.cts.CityCare.CityCare.dto.request.TreatmentRequest;
+import com.cts.CityCare.CityCare.dto.request.TreatmentSummaryResponse;
 import com.cts.CityCare.CityCare.dto.response.ApiResponse;
 import com.cts.CityCare.CityCare.entity.Treatment;
 
@@ -33,12 +34,14 @@ public class TreatmentController {
     }
 
     @GetMapping("/patient/{patientId}")
-    public ResponseEntity<ApiResponse<List<Treatment>>> getForPatient(
+    public ResponseEntity<ApiResponse<List<TreatmentSummaryResponse>>> getForPatient(
             @PathVariable Long patientId) {
 
+        // Service nundi simplified DTO list vastundi
+        List<TreatmentSummaryResponse> patientTreatments = treatmentService.getForPatient(patientId);
+
         return ResponseEntity.ok(
-                ApiResponse.ok("Treatments for patient",
-                        treatmentService.getForPatient(patientId)));
+                ApiResponse.ok("Treatments for patient: " + patientId, patientTreatments));
     }
 
     @PatchMapping("/{id}/status")
@@ -51,11 +54,11 @@ public class TreatmentController {
     }
 
     @GetMapping("/mine")
-    public ResponseEntity<ApiResponse<List<Treatment>>> getMine(
+    public ResponseEntity<ApiResponse<List<TreatmentSummaryResponse>>> getMine(
             @RequestHeader(name = "staffId") Long staffId) {
 
+        List<TreatmentSummaryResponse> myTreatments = treatmentService.getMyAssigned(staffId);
         return ResponseEntity.ok(
-                ApiResponse.ok("Assigned treatments for staff: " + staffId,
-                        treatmentService.getMyAssigned(staffId)));
+                ApiResponse.ok("Assigned treatments for staff: " + staffId, myTreatments));
     }
 }

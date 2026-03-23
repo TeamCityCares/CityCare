@@ -6,6 +6,7 @@ import com.cts.CityCare.CityCare.dto.response.ApiResponse;
 import com.cts.CityCare.CityCare.entity.Ambulance;
 import com.cts.CityCare.CityCare.entity.User;
 import com.cts.CityCare.CityCare.service.AdminService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +21,11 @@ public class AdminController {
 
     private final AdminService adminService;
 
-    //STAFF
+    // STAFF
     @PostMapping("/staff")
-    public ResponseEntity<ApiResponse<User>> createStaff(@RequestBody CreateStaffRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.ok("Staff account created", adminService.createStaff(request)));
+    public ResponseEntity<ApiResponse<User>> createStaff(@Valid @RequestBody CreateStaffRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.ok("Staff account created", adminService.createStaff(request)));
     }
 
     @GetMapping("/staff")
@@ -31,10 +33,11 @@ public class AdminController {
         return ResponseEntity.ok(ApiResponse.ok("All staff", adminService.getAllStaff()));
     }
 
-    //DISPATCHERS
+    // DISPATCHERS
     @PostMapping("/dispatchers")
-    public ResponseEntity<ApiResponse<User>> createDispatcher(@RequestBody CreateStaffRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.ok("Dispatcher account created", adminService.createDispatcher(request)));
+    public ResponseEntity<ApiResponse<User>> createDispatcher(@Valid @RequestBody CreateStaffRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.ok("Dispatcher account created", adminService.createDispatcher(request)));
     }
 
     @GetMapping("/dispatchers")
@@ -42,21 +45,24 @@ public class AdminController {
         return ResponseEntity.ok(ApiResponse.ok("All dispatchers", adminService.getAllDispatchers()));
     }
 
-    //COMPLIANCE /HEALTH OFFICERS
+    // COMPLIANCE / HEALTH OFFICERS
     @PostMapping("/compliance-officers")
-    public ResponseEntity<ApiResponse<User>> createComplianceOfficer(@RequestBody CreateStaffRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.ok("Compliance officer created", adminService.createComplianceOfficer(request)));
+    public ResponseEntity<ApiResponse<User>> createComplianceOfficer(@Valid @RequestBody CreateStaffRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.ok("Compliance officer created", adminService.createComplianceOfficer(request)));
     }
 
     @PostMapping("/health-officers")
-    public ResponseEntity<ApiResponse<User>> createHealthOfficer(@RequestBody CreateStaffRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.ok("City health officer created", adminService.createCityHealthOfficer(request)));
+    public ResponseEntity<ApiResponse<User>> createHealthOfficer(@Valid @RequestBody CreateStaffRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.ok("City health officer created", adminService.createCityHealthOfficer(request)));
     }
 
-    //AMBULANCES
+    // AMBULANCES
     @PostMapping("/ambulances")
-    public ResponseEntity<ApiResponse<Ambulance>> addAmbulance(@RequestBody AmbulanceRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.ok("Ambulance added to fleet", adminService.addAmbulance(request)));
+    public ResponseEntity<ApiResponse<Ambulance>> addAmbulance(@Valid @RequestBody AmbulanceRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.ok("Ambulance added to fleet", adminService.addAmbulance(request)));
     }
 
     @GetMapping("/ambulances")
@@ -69,7 +75,7 @@ public class AdminController {
         return ResponseEntity.ok(ApiResponse.ok("Ambulance status updated to " + status, adminService.updateAmbulanceStatus(id, status)));
     }
 
-    //USER MANAGEMENT
+    // USER MANAGEMENT
     @GetMapping("/users")
     public ResponseEntity<ApiResponse<List<User>>> getAllUsers() {
         return ResponseEntity.ok(ApiResponse.ok("All users", adminService.getAllUsers()));
