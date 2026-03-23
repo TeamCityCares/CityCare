@@ -14,7 +14,7 @@ public class CityCareApplication{
 
 	public static void main(String[] args) {
 		SpringApplication.run(CityCareApplication.class, args);
-		System.out.println("CityCareApplication started -- Vivek Patel");
+		System.out.println("CityCareApplication started");
 	}
 
 }
