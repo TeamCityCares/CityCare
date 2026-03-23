@@ -19,7 +19,7 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableJpaAuditing
-public class CityCareApplication implements CommandLineRunner {
+public class CityCareApplication  {
 // 	@Autowired
 // 	private EmergencyService emergencyService;
 
