@@ -50,6 +50,8 @@ public class CitizenController {
         return ResponseEntity.ok(ApiResponse.ok("Citizen details", citizenService.getById(id)));
     }
 
+
+//    --> Citizen Document Part
     @PostMapping("/{id}/documents")
     public ResponseEntity<ApiResponse<CitizenDocument>> uploadDocument(
             @PathVariable Long id,
