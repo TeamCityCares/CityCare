@@ -105,7 +105,5 @@ public class PatientService {
         return patientRepository.findByStatus(status);
     }
 
-    public List<Patient> getByCitizen(Long citizenId) {
-        return patientRepository.findByCitizenUserId(citizenId);
-    }
+
 }
