@@ -26,26 +26,26 @@ public class CitizenService {
 
     @Transactional
     public Citizen createOrUpdateProfile(Long userId, CitizenProfileRequest req) {
-        // 1. Find the User
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", userId));
 
-        // 2. Find existing citizen or create a new one linked to the user
-        Citizen citizen = citizenRepository.findByUserUserId(userId)
-                .orElse(Citizen.builder().user(user).build());
+        Citizen existingCitizen = citizenRepository.findByUserUserId(userId)
+                .orElse(null);
 
-        // 3. Update Citizen fields from the Request DTO
-        citizen.setName(req.getName());
-        citizen.setDateOfBirth(req.getDateOfBirth());
-        citizen.setGender(req.getGender());
-        citizen.setAddress(req.getAddress());
-        citizen.setContactInfo(req.getContactInfo());
+        Citizen citizen = Citizen.builder()
+                .citizenId(existingCitizen != null ? existingCitizen.getCitizenId() : null)
+                .user(user)
+                .name(req.getName())
+                .dateOfBirth(req.getDateOfBirth())
+                .gender(req.getGender())
+                .address(req.getAddress())
+                .contactInfo(req.getContactInfo())
+                .build();
 
-        // 4. SYNC: Update the name in the User table as well
         user.setName(req.getName());
         userRepository.save(user);
 
-        // 5. Save and return the updated Citizen
         return citizenRepository.save(citizen);
     }
 
