@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 @Entity
@@ -45,6 +46,8 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private Role role;
 
+    @Column(name="phone_number")
+    @Pattern(regexp = "^\\d{10}$", message = "Phone number must be exactly 10 digits")
     private String phone;
 
     @Enumerated(EnumType.STRING)
