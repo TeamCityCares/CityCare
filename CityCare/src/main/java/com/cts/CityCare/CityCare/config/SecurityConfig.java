@@ -56,66 +56,38 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-//                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-<<<<<<< HEAD
-                        // Public endpoints (Login/Register via JSON)
-                        .requestMatchers("/auth/**", "/citizens/**", "/facilities/**").permitAll()
-=======
-//                        // Public endpoints (Login/Register via JSON)
-//                        .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-//                        //"/citizens/**", "/facilities/**"
-//                        // Protected endpoints (Requires Basic Auth Header)
-//                       //.requestMatchers("emergencies/**","/emergencies/report", "/emergencies/my").permitAll()
-//                       //.requestMatchers("/admin/**").permitAll()
-//                        .requestMatchers("/treatments/**","/patients/**").hasRole("DOCTOR").hja
-//
-//
-//
-//                        .anyRequest().authenticated()
-                                .requestMatchers(
-                                        "/auth/**",
-                                        "/swagger-ui/**",
-                                        "/swagger-ui.html",
-                                        "/v3/api-docs/**"
-                                ).permitAll()
->>>>>>> 0c8096fa1c53ca9fed38d735c3db5a93de986739
+                        // 1. PUBLIC ENDPOINTS
+                        .requestMatchers(
+                                "/auth/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**"
+                        ).permitAll()
 
-                                // CITIZEN
-                                .requestMatchers("/emergencies/report").hasRole("CITIZEN")
-                                .requestMatchers("/emergencies/my").hasRole("CITIZEN")
-                                .requestMatchers("/citizens/profile").hasAnyRole("CITIZEN", "ADMIN")
+                        // 2. CITIZEN SPECIFIC
+                        .requestMatchers("/citizens/profile/**").hasAnyRole("CITIZEN", "ADMIN")
+                        .requestMatchers("/citizens/documents/**").hasAnyRole("CITIZEN", "ADMIN") // Upload/View
+                        .requestMatchers("/emergencies/report", "/emergencies/my").hasRole("CITIZEN")
 
-                                // DISPATCHER
-                                .requestMatchers("/emergencies/pending").hasRole("DISPATCHER")
-                                .requestMatchers("/emergencies/ambulances/available").hasRole("DISPATCHER")
-                                .requestMatchers("/emergencies/*/dispatch").hasRole("DISPATCHER")
+                        // 3. ADMIN/STAFF ONLY (Verification logic)
+                        // Only Admins should usually be allowed to change a document's verification status
+                        .requestMatchers("/citizens/documents/*/verify").hasRole("ADMIN")
 
-                                // ADMIN
-                                .requestMatchers("/emergencies/dispatched").hasAnyRole("ADMIN", "CITY_HEALTH_OFFICER")
-                                .requestMatchers("/patients/admit").hasRole("ADMIN")
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
-                                .requestMatchers("/facilities").hasAnyRole("ADMIN", "CITY_HEALTH_OFFICER")
+                        // 4. OTHER ROLES (As per your previous logic)
+                        .requestMatchers("/emergencies/pending", "/emergencies/*/dispatch").hasRole("DISPATCHER")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/treatments/**").hasAnyRole("DOCTOR", "NURSE")
 
-                                // DOCTOR / NURSE
-                                .requestMatchers("/treatments/**").hasAnyRole("DOCTOR", "NURSE")
-                                .requestMatchers("/patients/*/status").hasAnyRole("DOCTOR", "NURSE", "ADMIN")
-
-                                // COMPLIANCE
-                                .requestMatchers("/compliance/**").hasAnyRole("ADMIN", "COMPLIANCE_OFFICER", "CITY_HEALTH_OFFICER")
-
-                                // ANY AUTHENTICATED
-                                .anyRequest().authenticated()
+                        // 5. CATCH-ALL
+                        .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
-                // Enable Basic Auth for all non-public requests
-                .httpBasic(Customizer.withDefaults())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-
 //    @Bean
 //    public CorsConfigurationSource corsConfigurationSource() {
 //        CorsConfiguration config = new CorsConfiguration();

@@ -1,18 +1,21 @@
 package com.cts.CityCare.CityCare.controller;
 
-
 import com.cts.CityCare.CityCare.dto.request.CitizenProfileRequest;
 import com.cts.CityCare.CityCare.dto.response.ApiResponse;
 import com.cts.CityCare.CityCare.entity.Citizen;
 import com.cts.CityCare.CityCare.entity.CitizenDocument;
-import com.cts.CityCare.CityCare.entity.User;
+import com.cts.CityCare.CityCare.exception.ResourceNotFoundException;
+import com.cts.CityCare.CityCare.repository.UserRepository;
 import com.cts.CityCare.CityCare.service.CitizenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,19 +27,22 @@ import java.util.List;
 public class CitizenController {
 
     private final CitizenService citizenService;
+    private final UserRepository userRepository;
 
-
-    @PostMapping("/profile/{userId}")
+    @PutMapping("/profile")
     public ResponseEntity<ApiResponse<Citizen>> upsertProfile(
-            @PathVariable Long userId,
-            @Valid @RequestBody CitizenProfileRequest request) {
+            @Valid @RequestBody CitizenProfileRequest request,
+            @AuthenticationPrincipal UserDetails userDetails) {
+        Long userId = resolveUserId(userDetails);
         Citizen citizen = citizenService.createOrUpdateProfile(userId, request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.ok("Profile saved", citizen));
     }
 
-    @GetMapping("/profile/{userId}")
-    public ResponseEntity<ApiResponse<Citizen>> getMyProfile(@PathVariable Long userId) {
+    @GetMapping("/profile")
+    public ResponseEntity<ApiResponse<Citizen>> getMyProfile(
+            @AuthenticationPrincipal UserDetails userDetails) {
+        Long userId = resolveUserId(userDetails);
         return ResponseEntity.ok(ApiResponse.ok("Citizen profile", citizenService.getProfile(userId)));
     }
 
@@ -50,20 +56,21 @@ public class CitizenController {
         return ResponseEntity.ok(ApiResponse.ok("Citizen details", citizenService.getById(id)));
     }
 
+    // --- Citizen Document Part with MultipartFile ---
 
-//    --> Citizen Document Part
-    @PostMapping("/{id}/documents")
+    @PostMapping(value = "/{id}/documents", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResponse<CitizenDocument>> uploadDocument(
             @PathVariable Long id,
             @RequestParam("file") MultipartFile file) {
         try {
+            // Extract bytes from MultipartFile to store in @Lob field
             byte[] documentBytes = file.getBytes();
             CitizenDocument doc = citizenService.uploadDocument(id, documentBytes);
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(ApiResponse.ok("Document uploaded", doc));
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(ApiResponse.error("Failed to upload document: " + e.getMessage()));
+                    .body(ApiResponse.error("Failed to process file: " + e.getMessage()));
         }
     }
 
@@ -78,5 +85,12 @@ public class CitizenController {
             @RequestParam CitizenDocument.VerificationStatus status) {
         CitizenDocument doc = citizenService.verifyDocument(docId, status);
         return ResponseEntity.ok(ApiResponse.ok("Document status updated to " + status, doc));
+    }
+
+    // Helper to resolve UserID from JWT details
+    private Long resolveUserId(UserDetails userDetails) {
+        return userRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("Logged-in user not found"))
+                .getUserId();
     }
 }
