@@ -5,6 +5,7 @@ import com.cts.CityCare.CityCare.security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -81,6 +82,8 @@ public class SecurityConfig {
                                 .requestMatchers("/emergencies/report").hasRole("CITIZEN")
                                 .requestMatchers("/emergencies/my").hasRole("CITIZEN")
                                 .requestMatchers("/citizens/profile").hasAnyRole("CITIZEN", "ADMIN")
+                                .requestMatchers(HttpMethod.GET,"/citizens/*/documents").hasAnyRole("ADMIN","DOCTOR","NURSE")
+                                .requestMatchers("/citizens/documents/*/verify").hasRole("ADMIN")
 
                                 // DISPATCHER
                                 .requestMatchers("/emergencies/pending").hasRole("DISPATCHER")
@@ -88,7 +91,7 @@ public class SecurityConfig {
                                 .requestMatchers("/emergencies/*/dispatch").hasRole("DISPATCHER")
 
                                 // ADMIN
-                                .requestMatchers("/citizens/documents/*/verify").hasRole("ADMIN")
+
                                 .requestMatchers("/emergencies/dispatched").hasAnyRole("ADMIN", "CITY_HEALTH_OFFICER")
                                 .requestMatchers("/patients/admit").hasRole("ADMIN")
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
