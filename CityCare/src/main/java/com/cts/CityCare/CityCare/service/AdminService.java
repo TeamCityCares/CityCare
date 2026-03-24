@@ -13,6 +13,7 @@ import com.cts.CityCare.CityCare.repository.FacilityRepository;
 import com.cts.CityCare.CityCare.repository.StaffRepository; // Added Import
 import com.cts.CityCare.CityCare.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +28,7 @@ public class AdminService {
     private final AmbulanceRepository ambulanceRepository;
     private final FacilityRepository facilityRepository;
     private final StaffRepository staffRepository; // Injected StaffRepository
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public User createStaff(CreateStaffRequest req) {
@@ -75,7 +77,7 @@ public class AdminService {
         User user = User.builder()
                 .name(req.getName())
                 .email(req.getEmail())
-                .password(req.getPassword())
+                .password(passwordEncoder.encode(req.getPassword()))
                 .role(req.getRole())
                 .phone(req.getPhone())
                 .facility(facility)

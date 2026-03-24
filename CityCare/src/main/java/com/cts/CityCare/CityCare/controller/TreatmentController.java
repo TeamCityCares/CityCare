@@ -5,12 +5,19 @@ import com.cts.CityCare.CityCare.dto.request.TreatmentSummaryResponse;
 import com.cts.CityCare.CityCare.dto.response.ApiResponse;
 import com.cts.CityCare.CityCare.entity.Treatment;
 
+import com.cts.CityCare.CityCare.exception.ResourceNotFoundException;
+import com.cts.CityCare.CityCare.repository.UserRepository;
 import com.cts.CityCare.CityCare.service.TreatmentService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,33 +25,81 @@ import java.util.List;
 @RestController
 @RequestMapping("/treatments")
 @RequiredArgsConstructor
+@Tag(name = "4. Treatments", description = "Step 4: Doctor/Nurse assigns treatments and updates patient status.")
 public class TreatmentController {
 
     private final TreatmentService treatmentService;
+    private final UserRepository userRepository;
+
+    // ── STEP 4: Assign treatment ──────────────────────────────────────────────
 
     @PostMapping
+    @Operation(
+            summary = "[DOCTOR/NURSE] Assign Treatment to Patient – Step 4",
+            description = """
+            POSTMAN: POST http://localhost:8080/api/treatments
+            Header: Authorization: Bearer <DOCTOR_or_NURSE_TOKEN>
+            Body:
+            {
+              "patientId": 1,
+              "description": "Administer IV antibiotics every 8 hours for 5 days",
+              "medicationName": "Amoxicillin",
+              "dosage": "500mg IV every 8 hours"
+            }
+            → 'medicationName' and 'dosage' are optional.
+            → assignedBy is automatically the logged-in doctor/nurse.
+            → Treatment starts with status ONGOING.
+            """
+    )
     public ResponseEntity<ApiResponse<Treatment>> assign(
             @Valid @RequestBody TreatmentRequest request,
-            @RequestHeader(name = "staffId") Long staffId) { // Direct ID from Header
+            @AuthenticationPrincipal UserDetails userDetails) {
 
+        Long staffId = resolveUserId(userDetails);
         Treatment treatment = treatmentService.assignTreatment(staffId, request);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(ApiResponse.ok("Treatment assigned by staff: " + staffId, treatment));
+                .body(ApiResponse.ok("Treatment assigned", treatment));
     }
 
+    // ── Get all treatments for a specific patient ─────────────────────────────
+
     @GetMapping("/patient/{patientId}")
+    @Operation(
+            summary = "[DOCTOR/NURSE] Get All Treatments for a Patient",
+            description = """
+            POSTMAN: GET http://localhost:8080/api/treatments/patient/1
+            Header: Authorization: Bearer <DOCTOR_or_NURSE_TOKEN>
+            No body needed. Replace '1' with actual patientId.
+            """
+    )
     public ResponseEntity<ApiResponse<List<TreatmentSummaryResponse>>> getForPatient(
             @PathVariable Long patientId) {
 
-        // Service nundi simplified DTO list vastundi
-        List<TreatmentSummaryResponse> patientTreatments = treatmentService.getForPatient(patientId);
-
         return ResponseEntity.ok(
-                ApiResponse.ok("Treatments for patient: " + patientId, patientTreatments));
+                ApiResponse.ok("Treatments for patient",
+                        treatmentService.getForPatient(patientId)));
     }
 
+    // ── Update treatment status ───────────────────────────────────────────────
+
     @PatchMapping("/{id}/status")
+    @Operation(
+            summary = "[DOCTOR/NURSE] Update Treatment Status (Complete or Cancel)",
+            description = """
+            POSTMAN: PATCH http://localhost:8080/api/treatments/1/status?status=COMPLETED
+            Header: Authorization: Bearer <DOCTOR_or_NURSE_TOKEN>
+            No body needed. Status is a query parameter.
+            
+            Valid values: ONGOING | COMPLETED | CANCELLED
+            
+            Example URLs:
+            PATCH /api/treatments/1/status?status=COMPLETED
+            PATCH /api/treatments/2/status?status=CANCELLED
+            
+            On COMPLETED or CANCELLED → endDate is set to today automatically.
+            """
+    )
     public ResponseEntity<ApiResponse<Treatment>> updateStatus(
             @PathVariable Long id,
             @RequestParam Treatment.Status status) {
@@ -53,12 +108,32 @@ public class TreatmentController {
         return ResponseEntity.ok(ApiResponse.ok("Treatment status updated", treatment));
     }
 
-    @GetMapping("/mine")
-    public ResponseEntity<ApiResponse<List<TreatmentSummaryResponse>>> getMine(
-            @RequestHeader(name = "staffId") Long staffId) {
+    // ── Get all treatments assigned by the logged-in staff member ────────────
 
-        List<TreatmentSummaryResponse> myTreatments = treatmentService.getMyAssigned(staffId);
+    @GetMapping("/mine")
+    @Operation(
+            summary = "[DOCTOR/NURSE] View Treatments I Assigned",
+            description = """
+            POSTMAN: GET http://localhost:8080/api/treatments/mine
+            Header: Authorization: Bearer <DOCTOR_or_NURSE_TOKEN>
+            No body needed.
+            → Returns only treatments assigned by the logged-in doctor/nurse.
+            """
+    )
+    public ResponseEntity<ApiResponse<List<TreatmentSummaryResponse>>> getMine(
+            @AuthenticationPrincipal UserDetails userDetails) {
+
+        Long staffId = resolveUserId(userDetails);
         return ResponseEntity.ok(
-                ApiResponse.ok("Assigned treatments for staff: " + staffId, myTreatments));
+                ApiResponse.ok("Your assigned treatments",
+                        treatmentService.getMyAssigned(staffId)));
+    }
+
+    // ── Helper ────────────────────────────────────────────────────────────────
+
+    private Long resolveUserId(UserDetails userDetails) {
+        return userRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("Staff not found"))
+                .getUserId();
     }
 }

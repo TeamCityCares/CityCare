@@ -1,5 +1,6 @@
 package com.cts.CityCare.CityCare.config;
 
+import com.cts.CityCare.CityCare.JwtFilter.JwtFilter;
 import com.cts.CityCare.CityCare.security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -29,6 +31,8 @@ import java.util.List;
 public class SecurityConfig {
 
     private final UserDetailsServiceImpl userDetailsService;
+
+    private final JwtFilter jwtFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -55,19 +59,54 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // Public endpoints (Login/Register via JSON)
-                        .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/citizens/**", "/facilities/**").permitAll()
+//                        // Public endpoints (Login/Register via JSON)
+//                        .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+//                        //"/citizens/**", "/facilities/**"
+//                        // Protected endpoints (Requires Basic Auth Header)
+//                       //.requestMatchers("emergencies/**","/emergencies/report", "/emergencies/my").permitAll()
+//                       //.requestMatchers("/admin/**").permitAll()
+//                        .requestMatchers("/treatments/**","/patients/**").hasRole("DOCTOR").hja
+//
+//
+//
+//                        .anyRequest().authenticated()
+                                .requestMatchers(
+                                        "/auth/**",
+                                        "/swagger-ui/**",
+                                        "/swagger-ui.html",
+                                        "/v3/api-docs/**"
+                                ).permitAll()
 
-                        // Protected endpoints (Requires Basic Auth Header)
-                        .requestMatchers("emergencies/**","/emergencies/report", "/emergencies/my").permitAll()
-                        .requestMatchers("/admin/**").permitAll()
-                        .requestMatchers("/treatments/**","/patients/**").permitAll()
+                                // CITIZEN
+                                .requestMatchers("/emergencies/report").hasRole("CITIZEN")
+                                .requestMatchers("/emergencies/my").hasRole("CITIZEN")
+                                .requestMatchers("/citizens/profile").hasAnyRole("CITIZEN", "ADMIN")
 
-                        .anyRequest().authenticated()
+                                // DISPATCHER
+                                .requestMatchers("/emergencies/pending").hasRole("DISPATCHER")
+                                .requestMatchers("/emergencies/ambulances/available").hasRole("DISPATCHER")
+                                .requestMatchers("/emergencies/*/dispatch").hasRole("DISPATCHER")
+
+                                // ADMIN
+                                .requestMatchers("/emergencies/dispatched").hasAnyRole("ADMIN", "CITY_HEALTH_OFFICER")
+                                .requestMatchers("/patients/admit").hasRole("ADMIN")
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/facilities").hasAnyRole("ADMIN", "CITY_HEALTH_OFFICER")
+
+                                // DOCTOR / NURSE
+                                .requestMatchers("/treatments/**").hasAnyRole("DOCTOR", "NURSE")
+                                .requestMatchers("/patients/*/status").hasAnyRole("DOCTOR", "NURSE", "ADMIN")
+
+                                // COMPLIANCE
+                                .requestMatchers("/compliance/**").hasAnyRole("ADMIN", "COMPLIANCE_OFFICER", "CITY_HEALTH_OFFICER")
+
+                                // ANY AUTHENTICATED
+                                .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
                 // Enable Basic Auth for all non-public requests
-                .httpBasic(Customizer.withDefaults());
+                .httpBasic(Customizer.withDefaults())
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
