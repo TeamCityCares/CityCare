@@ -56,13 +56,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-//                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-<<<<<<< HEAD
-                        // Public endpoints (Login/Register via JSON)
-                        .requestMatchers("/auth/**", "/citizens/**", "/facilities/**").permitAll()
-=======
 //                        // Public endpoints (Login/Register via JSON)
 //                        .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
 //                        //"/citizens/**", "/facilities/**"
@@ -80,7 +76,6 @@ public class SecurityConfig {
                                         "/swagger-ui.html",
                                         "/v3/api-docs/**"
                                 ).permitAll()
->>>>>>> 0c8096fa1c53ca9fed38d735c3db5a93de986739
 
                                 // CITIZEN
                                 .requestMatchers("/emergencies/report").hasRole("CITIZEN")
@@ -93,6 +88,7 @@ public class SecurityConfig {
                                 .requestMatchers("/emergencies/*/dispatch").hasRole("DISPATCHER")
 
                                 // ADMIN
+                                .requestMatchers("/citizens/documents/*/verify").hasRole("ADMIN")
                                 .requestMatchers("/emergencies/dispatched").hasAnyRole("ADMIN", "CITY_HEALTH_OFFICER")
                                 .requestMatchers("/patients/admit").hasRole("ADMIN")
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -116,15 +112,15 @@ public class SecurityConfig {
         return http.build();
     }
 
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration config = new CorsConfiguration();
-//        config.setAllowedOriginPatterns(List.of("*"));
-//        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-//        config.setAllowedHeaders(List.of("*"));
-//        config.setAllowCredentials(true);
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", config);
-//        return source;
-//    }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOriginPatterns(List.of("*"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
 }
