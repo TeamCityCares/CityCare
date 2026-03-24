@@ -39,6 +39,7 @@ public class EmergencyService {
                 .build();
 
         return emergencyRepository.save(emergency);
+        // Hibernate: INSERT INTO emergencies (citizen_id, type, location, status, ...)
     }
 
     public List<Ambulance> getAvailableAmbulances() {
