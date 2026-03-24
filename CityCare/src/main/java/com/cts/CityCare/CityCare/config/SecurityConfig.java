@@ -82,7 +82,7 @@ public class SecurityConfig {
                                 .requestMatchers("/emergencies/report").hasRole("CITIZEN")
                                 .requestMatchers("/emergencies/my").hasRole("CITIZEN")
                                 .requestMatchers("/citizens/profile").hasAnyRole("CITIZEN", "ADMIN")
-                                .requestMatchers(HttpMethod.GET,"/citizens/*/documents").hasAnyRole("ADMIN","DOCTOR","NURSE")
+                                .requestMatchers(HttpMethod.GET,"/citizens/*/documents").hasAnyRole("ADMIN")
                                 .requestMatchers("/citizens/documents/*/verify").hasRole("ADMIN")
 
                                 // DISPATCHER
